@@ -1,17 +1,15 @@
 """
-No Frills scraper — v2, HTML link-based parsing.
+No Frills scraper — v3, tightened price extraction.
 
-Previous version walked __NEXT_DATA__ JSON heuristically. That failed because
-Loblaw's Next.js bundle contains many non-product objects with similar shape.
+v2 produced 21 real prices but ~5 were bad (per-unit prices leaked through:
+e.g. bagels at $0.39 when real price was $3.99).
 
-This version uses a much simpler approach: find every <a> link to a product
-page (URL pattern /en/{slug}/p/{sku}), then look backwards in the HTML for
-the price text that precedes it. Tested locally against real No Frills HTML.
-
-URL pattern (verified 2026-05-21):
-    https://www.nofrills.ca/en/search?search-bar={query}&storeId={store_id}
-
-No auth needed. Same pattern works for Zehrs and other Loblaw banners.
+v3 improvements:
+- Expanded unit-price filter to catch /ea, /each, /pkg, /pk
+- Per-product MIN price floor (most groceries cost ≥$0.50, never under)
+- Smarter price selection: prefer the LARGEST price in context (real shelf
+  price is almost always larger than the per-unit reference price)
+- Lower fuzzy match threshold from 85 to 70 for "near-match auto-accept"
 """
 from __future__ import annotations
 
@@ -31,15 +29,11 @@ RETAILER_SLUG = "no-frills"
 
 SEARCH_URL_TEMPLATE = "https://www.nofrills.ca/en/search?search-bar={query}&storeId={store_id}"
 
-# Match: <a href="/en/{slug}/p/{sku}?...">  capturing both the SKU and any
-# preceding text up to the previous product link.
-# SKU format: digits + _EA or _KG
 PRODUCT_LINK_RE = re.compile(
     r'href="(/en/[^/"]+/p/(\d+_[A-Z]{2,3}))(?:\?[^"]*)?"',
     re.IGNORECASE,
 )
 
-# Match prices in surrounding text
 SALE_PRICE_RE = re.compile(
     r'sale[^$]{0,30}\$(\d+\.\d{2})[^$]{0,40}formerly[^$]{0,30}\$(\d+\.\d{2})',
     re.IGNORECASE,
@@ -47,9 +41,16 @@ SALE_PRICE_RE = re.compile(
 ABOUT_PRICE_RE = re.compile(r'about\s*\$(\d+\.\d{2})', re.IGNORECASE)
 REGULAR_PRICE_RE = re.compile(r'\$(\d+\.\d{2})')
 
-# Optional product image alt text (gives us the brand + full name)
-# <img alt="Brand Product Name Size, $/100g" ...
+# Per-unit price suffixes to FILTER OUT (these aren't shelf prices)
+UNIT_SUFFIX_RE = re.compile(
+    r'\s*/\s*(?:100\s*g|100g|1\s*kg|1kg|1\s*lb|1lb|kg|lb|oz|ml|l\b|ea\b|each|pkg|pk|pc|piece)',
+    re.IGNORECASE,
+)
+
 IMG_ALT_RE = re.compile(r'<img[^>]+alt="([^"]+)"', re.IGNORECASE)
+
+# Minimum plausible shelf price for any grocery item (50 cents)
+MIN_PLAUSIBLE_CENTS = 50
 
 
 def fetch_search_page(query: str, store_external_id: str) -> str:
@@ -60,11 +61,51 @@ def fetch_search_page(query: str, store_external_id: str) -> str:
     return r.text
 
 
+def extract_shelf_price(context: str) -> tuple[int | None, int | None, bool]:
+    """
+    Pull shelf price from a product card context.
+    Returns (price_cents, was_cents, on_sale).
+
+    Strategy:
+    1. Sale prices have a specific format — find them first
+    2. "about $X.XX" is for weight-priced items (always real)
+    3. Otherwise, collect all $X.XX matches, filter out per-unit prices,
+       and return the LARGEST (which is almost always the shelf price;
+       per-unit prices that slip through filter are smaller).
+    """
+    sale = SALE_PRICE_RE.search(context)
+    if sale:
+        return (
+            int(round(float(sale.group(1)) * 100)),
+            int(round(float(sale.group(2)) * 100)),
+            True,
+        )
+
+    about = ABOUT_PRICE_RE.search(context)
+    if about:
+        cents = int(round(float(about.group(1)) * 100))
+        if cents >= MIN_PLAUSIBLE_CENTS:
+            return (cents, None, False)
+
+    # Collect plausible shelf prices (filter out unit prices)
+    candidates = []
+    for pm in REGULAR_PRICE_RE.finditer(context):
+        after = context[pm.end():pm.end() + 30]
+        if UNIT_SUFFIX_RE.match(after):
+            continue
+        cents = int(round(float(pm.group(1)) * 100))
+        if cents >= MIN_PLAUSIBLE_CENTS:
+            candidates.append(cents)
+
+    if not candidates:
+        return (None, None, False)
+
+    # Use the median-to-max strategy: real shelf price is usually the largest
+    # plausible value (per-unit prices that slip through filter are smaller)
+    return (max(candidates), None, False)
+
+
 def parse_products_from_html(html: str) -> list[dict]:
-    """
-    Walk the HTML. For each product link found, look at the ~1000 chars
-    BEFORE it (the product card content) to extract price + image alt + name.
-    """
     matches = list(PRODUCT_LINK_RE.finditer(html))
     results = []
     seen_skus = set()
@@ -75,57 +116,25 @@ def parse_products_from_html(html: str) -> list[dict]:
             continue
         seen_skus.add(sku)
 
-        # Context = chars between previous match and current
         ctx_start = matches[i - 1].end() if i > 0 else max(0, m.start() - 2000)
         context = html[ctx_start:m.start()]
 
-        # Skip "sponsored" cards (ads from other products that don't match the query)
         if re.search(r'\bsponsored\b', context, re.IGNORECASE):
             continue
 
-        # Determine price
-        price = None
-        was = None
-        on_sale = False
-
-        sale = SALE_PRICE_RE.search(context)
-        if sale:
-            price = int(round(float(sale.group(1)) * 100))
-            was = int(round(float(sale.group(2)) * 100))
-            on_sale = True
-        else:
-            about = ABOUT_PRICE_RE.search(context)
-            if about:
-                price = int(round(float(about.group(1)) * 100))
-            else:
-                # Find all $X.XX matches, take the LAST one (closest to the link)
-                # Filter out per-unit prices like $0.24/100g
-                price_candidates = []
-                for pm in REGULAR_PRICE_RE.finditer(context):
-                    # Check chars after the match — if it's "/100g" or similar, skip
-                    after = context[pm.end():pm.end() + 10]
-                    if re.match(r'\s*/(?:100g|1kg|1lb|kg|lb|oz|ml|l\b)', after, re.IGNORECASE):
-                        continue
-                    price_candidates.append(pm.group(1))
-                if price_candidates:
-                    price = int(round(float(price_candidates[-1]) * 100))
-
-        if not price or price < 10:
+        price, was, on_sale = extract_shelf_price(context)
+        if not price or price < MIN_PLAUSIBLE_CENTS:
             continue
 
-        # Extract product name from img alt text (most reliable)
-        # Look for image alt within context — usually the IMG comes before the price
+        # Name from img alt
         name = ""
         alts = IMG_ALT_RE.findall(context)
         if alts:
-            # Take the last alt (most likely belongs to this product card)
             alt = alts[-1]
-            # Strip trailing price/size suffixes like "$0.24/100g"
-            alt = re.sub(r'\s*\$[\d.]+/[\w%]+\s*$', '', alt).strip()
+            alt = re.sub(r'\s*\$[\d.]+/[\w%]+.*$', '', alt).strip()
             alt = re.sub(r'\s+\d+(?:\.\d+)?\s*(?:kg|g|ml|l)\s*$', '', alt, flags=re.IGNORECASE).strip()
             name = alt
 
-        # Fallback: use the URL slug
         if not name:
             slug_match = re.search(r'/en/([^/]+)/p/', m.group(1))
             if slug_match:
@@ -148,7 +157,6 @@ def parse_products_from_html(html: str) -> list[dict]:
 def search_no_frills(query: str, store_external_id: str) -> list[dict]:
     html = fetch_search_page(query, store_external_id)
 
-    # Always dump the first response for inspection
     debug_dir = Path("scrapers/data")
     debug_dir.mkdir(parents=True, exist_ok=True)
     debug_path = debug_dir / "no_frills_first_response.html"
@@ -161,10 +169,6 @@ def search_no_frills(query: str, store_external_id: str) -> list[dict]:
         log.debug("Parsed %d products for '%s'", len(products), query)
     else:
         log.warning("No products found for '%s' (HTML: %d bytes)", query, len(html))
-        # Save the failing HTML alongside for debugging
-        fail_path = debug_dir / f"no_frills_fail_{query[:20].replace(' ', '_')}.html"
-        if not fail_path.exists():
-            fail_path.write_text(html)
 
     return products
 
@@ -185,6 +189,8 @@ def run(dry_run: bool = False) -> None:
     review_log = []
     no_results = []
     written = 0
+    # Lowered auto-match threshold to capture more SKUs
+    AUTO_MATCH_THRESHOLD = 70
 
     for st in stores:
         log.info("Scraping %s (storeId=%s)", st["name"], st["external_id"])
@@ -200,22 +206,20 @@ def run(dry_run: bool = False) -> None:
                 no_results.append(query)
                 continue
 
-            # Fuzzy match: try top 5 results against canonical name
             picked = None
             picked_score = 0
             canon = [{"id": product["rank"], "name": product["name"], "unit": product.get("unit", "")}]
-            for r in results[:5]:
+            for r in results[:8]:
                 best = match.best_match(r["name"], canon)
                 if best and best["score"] > picked_score:
                     picked = r
                     picked_score = best["score"]
-                    picked_auto = best["auto"]
 
             if not picked:
                 no_results.append(query)
                 continue
 
-            if not picked_auto:
+            if picked_score < AUTO_MATCH_THRESHOLD:
                 review_log.append({
                     "query": query,
                     "result_name": picked["name"],
@@ -226,10 +230,11 @@ def run(dry_run: bool = False) -> None:
 
             if dry_run:
                 log.info(
-                    "[dry] %s -> %s = $%.2f%s",
+                    "[dry] %s -> %s = $%.2f%s [match=%d]",
                     product["name"], picked["name"],
                     picked["price_cents"] / 100,
                     " (SALE)" if picked["on_sale"] else "",
+                    picked_score,
                 )
                 continue
 
