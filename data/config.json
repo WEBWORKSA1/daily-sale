@@ -1,0 +1,34 @@
+{
+  "retailers": [
+    { "slug": "walmart",     "name": "Walmart",     "country": "CA", "flyer_url": "https://www.walmart.ca/en/flyer" },
+    { "slug": "no-frills",   "name": "No Frills",   "country": "CA", "flyer_url": "https://www.nofrills.ca/print-flyer" },
+    { "slug": "freshco",     "name": "FreshCo",     "country": "CA", "flyer_url": "https://www.freshco.com/flyer" },
+    { "slug": "sobeys",      "name": "Sobeys",      "country": "CA", "flyer_url": "https://www.sobeys.com/en/flyer/" },
+    { "slug": "food-basics", "name": "Food Basics", "country": "CA", "flyer_url": "https://www.foodbasics.ca/flyer" },
+    { "slug": "zehrs",       "name": "Zehrs",       "country": "CA", "flyer_url": "https://www.zehrs.ca/print-flyer" },
+    { "slug": "giant-tiger", "name": "Giant Tiger", "country": "CA", "flyer_url": "https://www.gianttiger.com/pages/flyer" }
+  ],
+  "stores": [
+    { "id": "walmart-stcatharines",     "retailer_slug": "walmart",     "external_id": "1212",
+      "name": "Walmart Supercentre St. Catharines",  "address": "420 Vansickle Rd",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2S0B3" },
+    { "id": "nofrills-geneva",          "retailer_slug": "no-frills",   "external_id": "3826",
+      "name": "Mike's NoFrills",                       "address": "285 Geneva St",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2N2G1" },
+    { "id": "freshco-scott",            "retailer_slug": "freshco",     "external_id": "8821",
+      "name": "FreshCo Scott & Vine",                  "address": "350 Scott St",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2N1J5" },
+    { "id": "sobeys-glendale",          "retailer_slug": "sobeys",      "external_id": "0673",
+      "name": "Sobeys Glendale",                       "address": "210 Glendale Ave",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2T2L1" },
+    { "id": "foodbasics-welland",       "retailer_slug": "food-basics", "external_id": "0418",
+      "name": "Food Basics Welland Ave",               "address": "525 Welland Ave",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2M5V3" },
+    { "id": "zehrs-fairview",           "retailer_slug": "zehrs",       "external_id": "1024",
+      "name": "Zehrs Fairview",                        "address": "285 Geneva St",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2N2G1" },
+    { "id": "gianttiger-stcatharines",  "retailer_slug": "giant-tiger", "external_id": "184",
+      "name": "Giant Tiger St. Catharines",            "address": "285 Geneva St",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2N2G1" }
+  ]
+}
