@@ -1,15 +1,16 @@
 """
-No Frills scraper — v3, tightened price extraction.
+No Frills scraper — v4, per-product price plausibility.
 
-v2 produced 21 real prices but ~5 were bad (per-unit prices leaked through:
-e.g. bagels at $0.39 when real price was $3.99).
+v3 fixes still left bad data:
+- Apples 3lb at $1.15 (per-unit leaked: real ~$4.99)
+- Carrots 2lb at $0.57 (per-unit: real ~$2.49)
+- Garlic bulb at $7.00 (fuzzy matched to garlic powder jar)
 
-v3 improvements:
-- Expanded unit-price filter to catch /ea, /each, /pkg, /pk
-- Per-product MIN price floor (most groceries cost ≥$0.50, never under)
-- Smarter price selection: prefer the LARGEST price in context (real shelf
-  price is almost always larger than the per-unit reference price)
-- Lower fuzzy match threshold from 85 to 70 for "near-match auto-accept"
+v4 improvements:
+- PRICE_FLOORS: per-canonical-SKU minimum plausible shelf price
+- "median-bias" price picker instead of max — handles 3-price contexts
+  ($0.57 per-unit, $2.49 shelf, $4.99 regular ref) correctly
+- AUTO_MATCH_THRESHOLD raised 70 -> 78 (kills garlic-powder-for-garlic-bulb)
 """
 from __future__ import annotations
 
@@ -41,7 +42,6 @@ SALE_PRICE_RE = re.compile(
 ABOUT_PRICE_RE = re.compile(r'about\s*\$(\d+\.\d{2})', re.IGNORECASE)
 REGULAR_PRICE_RE = re.compile(r'\$(\d+\.\d{2})')
 
-# Per-unit price suffixes to FILTER OUT (these aren't shelf prices)
 UNIT_SUFFIX_RE = re.compile(
     r'\s*/\s*(?:100\s*g|100g|1\s*kg|1kg|1\s*lb|1lb|kg|lb|oz|ml|l\b|ea\b|each|pkg|pk|pc|piece)',
     re.IGNORECASE,
@@ -49,8 +49,64 @@ UNIT_SUFFIX_RE = re.compile(
 
 IMG_ALT_RE = re.compile(r'<img[^>]+alt="([^"]+)"', re.IGNORECASE)
 
-# Minimum plausible shelf price for any grocery item (50 cents)
-MIN_PLAUSIBLE_CENTS = 50
+MIN_PLAUSIBLE_CENTS = 50  # global floor
+
+# Per-canonical-SKU plausibility floors (cents). If scraped price is below
+# this, we reject it — it's almost certainly a per-unit price leak.
+# Numbers calibrated from real Canadian retail 2025-2026.
+PRICE_FLOORS = {
+    # Dairy
+    "milk-2pct-4l": 400, "milk-1pct-4l": 400, "milk-skim-4l": 400, "milk-homo-4l": 400,
+    "eggs-large-dozen": 300, "eggs-large-18": 500,
+    "butter-salted-454g": 400, "butter-unsalted-454g": 400,
+    "cheese-cheddar-block-400g": 500, "cheese-shredded-mozza-320g": 400,
+    "yogurt-plain-750g": 300, "yogurt-greek-500g": 350,
+    "cream-35-473ml": 300, "cream-10-473ml": 250, "sour-cream-500ml": 200,
+    # Bakery
+    "bread-white-675g": 200, "bread-whole-wheat-675g": 200,
+    "bagels-plain-6pk": 200, "english-muffins-6pk": 200, "tortillas-flour-10pk": 250,
+    "buns-hamburger-8pk": 200, "buns-hotdog-8pk": 200,
+    # Produce — these are the ones that bit us
+    "bananas-lb": 50, "apples-gala-3lb": 250, "apples-mcintosh-3lb": 250,
+    "oranges-navel-3lb": 400, "strawberries-1lb": 300, "blueberries-pint": 250,
+    "grapes-red-2lb": 400, "tomatoes-on-vine-lb": 150,
+    "potatoes-russet-10lb": 400, "potatoes-yellow-5lb": 300,
+    "onions-yellow-3lb": 250, "carrots-2lb": 150, "celery-bunch": 200,
+    "lettuce-romaine-3pk": 300, "spinach-baby-312g": 350, "cucumber-english": 100,
+    "peppers-bell-3pk": 400, "broccoli-bunch": 150, "garlic-bulb": 50,
+    "avocado-each": 80, "lemons-bag-2lb": 250, "limes-each": 50,
+    "mushrooms-white-227g": 200,
+    # Meat
+    "chicken-breast-bnls-skls-lb": 500, "chicken-thighs-bnls-skls-lb": 350,
+    "chicken-whole-lb": 200, "ground-beef-lean-lb": 500, "ground-beef-medium-lb": 400,
+    "beef-striploin-lb": 1000, "pork-tenderloin-lb": 400, "pork-chops-lb": 350,
+    "bacon-375g": 400, "sausage-breakfast-375g": 350, "hot-dogs-12pk": 250,
+    "deli-ham-175g": 300, "deli-turkey-175g": 350,
+    "salmon-atlantic-lb": 900, "tilapia-frozen-400g": 500,
+    # Pantry
+    "rice-basmati-8kg": 1500, "rice-long-grain-2kg": 400,
+    "pasta-spaghetti-900g": 150, "pasta-penne-900g": 150,
+    "pasta-sauce-tomato-650ml": 200, "flour-all-purpose-2-5kg": 350,
+    "sugar-white-2kg": 300, "salt-table-1kg": 100,
+    "oil-canola-3l": 600, "oil-olive-1l": 700, "peanut-butter-1kg": 350,
+    "jam-strawberry-500ml": 300, "honey-1kg": 600, "maple-syrup-540ml": 800,
+    "cereal-cheerios-570g": 400, "oats-quick-1kg": 250,
+    "soup-tomato-540ml": 130, "tuna-canned-170g": 100, "beans-canned-540ml": 120,
+    "tomatoes-canned-796ml": 150,
+    # Frozen
+    "frozen-pizza-pepperoni": 350, "frozen-fries-1kg": 250,
+    "frozen-veg-mix-750g": 250, "frozen-berries-600g": 500,
+    "ice-cream-1-5l": 350, "frozen-chicken-nuggets-700g": 600,
+    # Beverage
+    "coffee-ground-930g": 1000, "tea-orange-pekoe-72ct": 300,
+    "juice-orange-1-75l": 300, "juice-apple-1-75l": 250,
+    "water-bottled-24pk": 250, "soda-cola-12pk": 500,
+    # Household
+    "toilet-paper-12-double": 600, "paper-towel-6-roll": 500,
+    "dish-soap-740ml": 300, "laundry-detergent-2-95l": 1000, "trash-bags-40ct": 800,
+    # Condiments
+    "ketchup-1l": 350, "mayo-890ml": 450, "mustard-yellow-450ml": 200,
+}
 
 
 def fetch_search_page(query: str, store_external_id: str) -> str:
@@ -61,51 +117,53 @@ def fetch_search_page(query: str, store_external_id: str) -> str:
     return r.text
 
 
-def extract_shelf_price(context: str) -> tuple[int | None, int | None, bool]:
+def extract_shelf_price(context: str, floor_cents: int = MIN_PLAUSIBLE_CENTS) -> tuple[int | None, int | None, bool]:
     """
-    Pull shelf price from a product card context.
-    Returns (price_cents, was_cents, on_sale).
+    Pull shelf price from a product card context, with a per-product floor.
 
     Strategy:
-    1. Sale prices have a specific format — find them first
-    2. "about $X.XX" is for weight-priced items (always real)
-    3. Otherwise, collect all $X.XX matches, filter out per-unit prices,
-       and return the LARGEST (which is almost always the shelf price;
-       per-unit prices that slip through filter are smaller).
+    1. Sale prices have specific 'sale: $X formerly: $Y' format — find first
+    2. 'about $X' is for weight-priced items — accept if ≥ floor
+    3. Collect all $X candidates, filter unit suffixes, filter < floor.
+       From what remains, pick the SECOND-LARGEST (median bias) if there
+       are 3+, else MAX. This handles the typical 3-price card layout:
+       [unit_ref, shelf, regular_strike] correctly.
     """
     sale = SALE_PRICE_RE.search(context)
     if sale:
-        return (
-            int(round(float(sale.group(1)) * 100)),
-            int(round(float(sale.group(2)) * 100)),
-            True,
-        )
+        cur = int(round(float(sale.group(1)) * 100))
+        was = int(round(float(sale.group(2)) * 100))
+        if cur >= floor_cents:
+            return (cur, was, True)
 
     about = ABOUT_PRICE_RE.search(context)
     if about:
         cents = int(round(float(about.group(1)) * 100))
-        if cents >= MIN_PLAUSIBLE_CENTS:
+        if cents >= floor_cents:
             return (cents, None, False)
 
-    # Collect plausible shelf prices (filter out unit prices)
     candidates = []
     for pm in REGULAR_PRICE_RE.finditer(context):
         after = context[pm.end():pm.end() + 30]
         if UNIT_SUFFIX_RE.match(after):
             continue
         cents = int(round(float(pm.group(1)) * 100))
-        if cents >= MIN_PLAUSIBLE_CENTS:
+        if cents >= floor_cents:
             candidates.append(cents)
 
     if not candidates:
         return (None, None, False)
 
-    # Use the median-to-max strategy: real shelf price is usually the largest
-    # plausible value (per-unit prices that slip through filter are smaller)
+    if len(candidates) >= 3:
+        # Median bias: sort, pick second-largest
+        # (largest = "regular" reference, second = actual shelf, smaller = unit refs)
+        sorted_c = sorted(candidates, reverse=True)
+        return (sorted_c[1], None, False)
+
     return (max(candidates), None, False)
 
 
-def parse_products_from_html(html: str) -> list[dict]:
+def parse_products_from_html(html: str, floor_cents: int = MIN_PLAUSIBLE_CENTS) -> list[dict]:
     matches = list(PRODUCT_LINK_RE.finditer(html))
     results = []
     seen_skus = set()
@@ -122,11 +180,10 @@ def parse_products_from_html(html: str) -> list[dict]:
         if re.search(r'\bsponsored\b', context, re.IGNORECASE):
             continue
 
-        price, was, on_sale = extract_shelf_price(context)
-        if not price or price < MIN_PLAUSIBLE_CENTS:
+        price, was, on_sale = extract_shelf_price(context, floor_cents)
+        if not price or price < floor_cents:
             continue
 
-        # Name from img alt
         name = ""
         alts = IMG_ALT_RE.findall(context)
         if alts:
@@ -154,7 +211,7 @@ def parse_products_from_html(html: str) -> list[dict]:
     return results
 
 
-def search_no_frills(query: str, store_external_id: str) -> list[dict]:
+def search_no_frills(query: str, store_external_id: str, floor_cents: int = MIN_PLAUSIBLE_CENTS) -> list[dict]:
     html = fetch_search_page(query, store_external_id)
 
     debug_dir = Path("scrapers/data")
@@ -164,7 +221,7 @@ def search_no_frills(query: str, store_external_id: str) -> list[dict]:
         debug_path.write_text(html)
         log.info("Saved first response (%d bytes) to %s", len(html), debug_path)
 
-    products = parse_products_from_html(html)
+    products = parse_products_from_html(html, floor_cents)
     if products:
         log.debug("Parsed %d products for '%s'", len(products), query)
     else:
@@ -188,16 +245,17 @@ def run(dry_run: bool = False) -> None:
 
     review_log = []
     no_results = []
+    rejected_low = []
     written = 0
-    # Lowered auto-match threshold to capture more SKUs
-    AUTO_MATCH_THRESHOLD = 70
+    AUTO_MATCH_THRESHOLD = 78  # raised from 70 — kills wrong-product matches
 
     for st in stores:
         log.info("Scraping %s (storeId=%s)", st["name"], st["external_id"])
         for product in products:
             query = search_query_for(product)
+            floor = PRICE_FLOORS.get(product["slug"], MIN_PLAUSIBLE_CENTS)
             try:
-                results = search_no_frills(query, st["external_id"])
+                results = search_no_frills(query, st["external_id"], floor_cents=floor)
             except Exception as e:
                 log.warning("Search failed for '%s': %s", query, e)
                 continue
@@ -228,6 +286,14 @@ def run(dry_run: bool = False) -> None:
                 })
                 continue
 
+            if picked["price_cents"] < floor:
+                rejected_low.append({
+                    "query": query,
+                    "price": picked["price_cents"] / 100,
+                    "floor": floor / 100,
+                })
+                continue
+
             if dry_run:
                 log.info(
                     "[dry] %s -> %s = $%.2f%s [match=%d]",
@@ -249,8 +315,8 @@ def run(dry_run: bool = False) -> None:
             written += 1
 
     log.info(
-        "Done. Wrote %d prices. %d need review. %d had no results.",
-        written, len(review_log), len(no_results),
+        "Done. Wrote %d prices. %d review queue, %d no results, %d rejected as too low.",
+        written, len(review_log), len(no_results), len(rejected_low),
     )
 
     debug_dir = Path("scrapers/data")
@@ -259,8 +325,10 @@ def run(dry_run: bool = False) -> None:
         "wrote": written,
         "review_count": len(review_log),
         "no_results_count": len(no_results),
+        "rejected_low_count": len(rejected_low),
         "review": review_log[:20],
         "no_results": no_results[:20],
+        "rejected_low": rejected_low[:20],
     }
     (debug_dir / "no_frills_summary.json").write_text(json.dumps(summary, indent=2))
 
