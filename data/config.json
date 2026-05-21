@@ -1,20 +1,20 @@
 {
   "retailers": [
     { "slug": "walmart",     "name": "Walmart",     "country": "CA", "flyer_url": "https://www.walmart.ca/en/flyer" },
-    { "slug": "no-frills",   "name": "No Frills",   "country": "CA", "flyer_url": "https://www.nofrills.ca/print-flyer" },
+    { "slug": "no-frills",   "name": "No Frills",   "country": "CA", "flyer_url": "https://www.nofrills.ca/en/search" },
     { "slug": "freshco",     "name": "FreshCo",     "country": "CA", "flyer_url": "https://www.freshco.com/flyer" },
     { "slug": "sobeys",      "name": "Sobeys",      "country": "CA", "flyer_url": "https://www.sobeys.com/en/flyer/" },
     { "slug": "food-basics", "name": "Food Basics", "country": "CA", "flyer_url": "https://www.foodbasics.ca/flyer" },
-    { "slug": "zehrs",       "name": "Zehrs",       "country": "CA", "flyer_url": "https://www.zehrs.ca/print-flyer" },
+    { "slug": "zehrs",       "name": "Zehrs",       "country": "CA", "flyer_url": "https://www.zehrs.ca/en/search" },
     { "slug": "giant-tiger", "name": "Giant Tiger", "country": "CA", "flyer_url": "https://www.gianttiger.com/pages/flyer" }
   ],
   "stores": [
     { "id": "walmart-stcatharines",     "retailer_slug": "walmart",     "external_id": "1212",
       "name": "Walmart Supercentre St. Catharines",  "address": "420 Vansickle Rd",
       "city": "St. Catharines", "province": "ON", "postal_code": "L2S0B3" },
-    { "id": "nofrills-geneva",          "retailer_slug": "no-frills",   "external_id": "3826",
-      "name": "Mike's NoFrills",                       "address": "285 Geneva St",
-      "city": "St. Catharines", "province": "ON", "postal_code": "L2N2G1" },
+    { "id": "nofrills-blakes",          "retailer_slug": "no-frills",   "external_id": "7496",
+      "name": "Blake's NoFrills",                      "address": "St. Catharines",
+      "city": "St. Catharines", "province": "ON", "postal_code": "L2R3M3" },
     { "id": "freshco-scott",            "retailer_slug": "freshco",     "external_id": "8821",
       "name": "FreshCo Scott & Vine",                  "address": "350 Scott St",
       "city": "St. Catharines", "province": "ON", "postal_code": "L2N1J5" },
