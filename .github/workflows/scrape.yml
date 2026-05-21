@@ -1,0 +1,67 @@
+name: Daily price scrape
+
+on:
+  schedule:
+    - cron: "0 10 * * *"   # 06:00 ET daily
+  workflow_dispatch:        # also allows manual "Run workflow" button
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r scrapers/requirements.txt
+
+      - name: Run No Frills scraper
+        run: python scrapers/retailers/no_frills.py --verbose
+        continue-on-error: true
+
+      - name: Show what was scraped
+        run: |
+          if [ -f data/prices/latest.json ]; then
+            python3 -c "
+import json
+d = json.load(open('data/prices/latest.json'))
+sources = {}
+for p in d['prices']:
+    sources[p['source']] = sources.get(p['source'], 0) + 1
+print('Price sources after scrape:')
+for s, count in sorted(sources.items()):
+    print(f'  {s}: {count}')
+"
+          fi
+
+      - name: Commit updated prices
+        run: |
+          git config user.name "daily-sale-bot"
+          git config user.email "bot@daily-sale.local"
+          git add data/prices/latest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "data: daily price scrape $(date -u +%Y-%m-%d)"
+            git push
+            echo "Pushed updated prices"
+          else
+            echo "No changes — scraper found same prices as before"
+          fi
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-debug
+          path: scrapers/data/*.json
+          if-no-files-found: ignore
+          retention-days: 7
