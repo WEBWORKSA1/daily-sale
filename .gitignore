@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.env
+.env.local
+.env.production
+*.log
+.DS_Store
+__pycache__
+*.pyc
+.venv
+venv
+.vercel
+scrapers/data/*.json
+!scrapers/data/.gitkeep
