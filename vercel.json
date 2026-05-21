@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build",
+  "buildCommand": "node scripts/generate_seed_prices.js && next build",
   "installCommand": "npm install",
   "devCommand": "next dev"
 }
