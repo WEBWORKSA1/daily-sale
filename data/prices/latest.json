@@ -1,13 +1,13 @@
 {
   "generated_at": "2026-05-21",
   "store_count": 1,
-  "product_count": 48,
-  "price_count": 48,
+  "product_count": 60,
+  "price_count": 60,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "eggs-large-dozen",
-      "price_cents": 718,
+      "price_cents": 393,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -15,7 +15,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "eggs-large-18",
-      "price_cents": 1049,
+      "price_cents": 698,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -143,7 +143,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "oil-canola-3l",
-      "price_cents": 400,
+      "price_cents": 900,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -319,7 +319,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "maple-syrup-540ml",
-      "price_cents": 550,
+      "price_cents": 1750,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -367,7 +367,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "coffee-ground-930g",
-      "price_cents": 1999,
+      "price_cents": 1699,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -384,6 +384,102 @@
       "store_id": "nofrills-blakes",
       "product_slug": "trash-bags-40ct",
       "price_cents": 549,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-2pct-4l",
+      "price_cents": 709,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-1pct-4l",
+      "price_cents": 394,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-homo-4l",
+      "price_cents": 629,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "cheese-shredded-mozza-320g",
+      "price_cents": 579,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "buns-hotdog-8pk",
+      "price_cents": 500,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "chicken-whole-lb",
+      "price_cents": 1500,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "sausage-breakfast-375g",
+      "price_cents": 849,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 350,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "jam-strawberry-500ml",
+      "price_cents": 749,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "cereal-cheerios-570g",
+      "price_cents": 550,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "frozen-veg-mix-750g",
+      "price_cents": 400,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "tea-orange-pekoe-72ct",
+      "price_cents": 799,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
