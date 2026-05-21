@@ -8,8 +8,6 @@ The No Frills site (Next.js) embeds product data in two places:
 1. <script id="__NEXT_DATA__">  — full JSON of page state
 2. Visible HTML product cards   — fallback if __NEXT_DATA__ structure shifts
 
-This scraper tries __NEXT_DATA__ first (cleaner), falls back to HTML parsing.
-
 URL pattern (verified from DevTools 2026-05-21):
     https://www.nofrills.ca/en/search?search-bar={query}&storeId={store_id}
 
@@ -58,11 +56,24 @@ def extract_next_data(html: str) -> dict | None:
 
 
 def find_products_in_next_data(data: dict) -> list[dict]:
+    """
+    Walk __NEXT_DATA__ and collect dicts that look like product objects.
+
+    HARD requirement: 'name' MUST be a string (was the bug that crashed parsing —
+    many non-product objects also have a 'name' field as a dict like
+    {"en": "...", "fr": "..."} from i18n bundles).
+    """
     found = []
 
     def walk(node):
         if isinstance(node, dict):
-            if "name" in node and ("price" in node or "prices" in node or "currentPrice" in node):
+            name_val = node.get("name")
+            has_price_key = (
+                "price" in node
+                or "prices" in node
+                or "currentPrice" in node
+            )
+            if isinstance(name_val, str) and name_val.strip() and has_price_key:
                 found.append(node)
             for v in node.values():
                 walk(v)
@@ -78,7 +89,10 @@ def normalize_price(value) -> int | None:
     if value is None:
         return None
     if isinstance(value, (int, float)):
-        return int(round(float(value) * 100))
+        try:
+            return int(round(float(value) * 100))
+        except (TypeError, ValueError):
+            return None
     if isinstance(value, str):
         cleaned = re.sub(r"[^\d.]", "", value)
         if cleaned:
@@ -95,85 +109,120 @@ def normalize_price(value) -> int | None:
     return None
 
 
+def safe_str(value) -> str:
+    """Coerce anything to a string. Handles i18n dicts like {'en': '...', 'fr': '...'}."""
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value.strip()
+    if isinstance(value, (int, float)):
+        return str(value)
+    if isinstance(value, dict):
+        for key in ("en", "value", "text"):
+            if key in value and isinstance(value[key], str):
+                return value[key].strip()
+    return ""
+
+
 def extract_product_info(p: dict) -> dict | None:
-    name = (p.get("name") or "").strip()
-    if not name:
-        return None
+    """Pull name, sku, prices from a raw dict. Returns None for non-products."""
+    try:
+        name = safe_str(p.get("name"))
+        if not name:
+            return None
 
-    sku = str(
-        p.get("code") or p.get("productId") or p.get("id") or p.get("sku") or ""
-    ).strip()
+        sku = safe_str(
+            p.get("code") or p.get("productId") or p.get("id") or p.get("sku")
+        )
 
-    cur = None
-    for key in ("price", "currentPrice", "salePrice"):
-        if key in p:
-            cur = normalize_price(p[key])
-            if cur:
-                break
-    if not cur and "prices" in p and isinstance(p["prices"], dict):
+        cur = None
         for key in ("price", "currentPrice", "salePrice"):
-            if key in p["prices"]:
-                cur = normalize_price(p["prices"][key])
+            if key in p:
+                cur = normalize_price(p[key])
                 if cur:
                     break
+        if not cur and isinstance(p.get("prices"), dict):
+            for key in ("price", "currentPrice", "salePrice"):
+                if key in p["prices"]:
+                    cur = normalize_price(p["prices"][key])
+                    if cur:
+                        break
 
-    was = None
-    for key in ("wasPrice", "regularPrice", "originalPrice", "comparePrice"):
-        if key in p:
-            was = normalize_price(p[key])
-            if was:
-                break
-    if not was and "prices" in p and isinstance(p["prices"], dict):
-        for key in ("wasPrice", "regularPrice"):
-            if key in p["prices"]:
-                was = normalize_price(p["prices"][key])
+        was = None
+        for key in ("wasPrice", "regularPrice", "originalPrice", "comparePrice"):
+            if key in p:
+                was = normalize_price(p[key])
                 if was:
                     break
+        if not was and isinstance(p.get("prices"), dict):
+            for key in ("wasPrice", "regularPrice"):
+                if key in p["prices"]:
+                    was = normalize_price(p["prices"][key])
+                    if was:
+                        break
 
-    if not cur:
+        if not cur or cur < 10:  # skip products under $0.10 (likely junk)
+            return None
+
+        return {
+            "sku": sku,
+            "name": name,
+            "price_cents": cur,
+            "was_cents": was,
+            "on_sale": bool(was and was > cur),
+        }
+    except Exception as e:
+        log.debug("Skipping malformed product candidate: %s", e)
         return None
-
-    return {
-        "sku": sku,
-        "name": name,
-        "price_cents": cur,
-        "was_cents": was,
-        "on_sale": bool(was and was > cur),
-    }
 
 
 def parse_html_fallback(html: str) -> list[dict]:
     tree = HTMLParser(html)
     results = []
     for card in tree.css('[data-testid="product-tile"]'):
-        name_el = card.css_first('[data-testid="product-tile--product-name"]')
-        price_el = card.css_first('[data-testid="price"]') or card.css_first(".price")
-        if not (name_el and price_el):
+        try:
+            name_el = card.css_first('[data-testid="product-tile--product-name"]')
+            price_el = card.css_first('[data-testid="price"]') or card.css_first(".price")
+            if not (name_el and price_el):
+                continue
+            name = name_el.text(strip=True)
+            price_text = price_el.text(strip=True)
+            cur = normalize_price(price_text)
+            if cur:
+                results.append({
+                    "sku": card.attributes.get("data-code", ""),
+                    "name": name,
+                    "price_cents": cur,
+                    "was_cents": None,
+                    "on_sale": False,
+                })
+        except Exception:
             continue
-        name = name_el.text(strip=True)
-        price_text = price_el.text(strip=True)
-        cur = normalize_price(price_text)
-        if cur:
-            results.append({
-                "sku": card.attributes.get("data-code", ""),
-                "name": name,
-                "price_cents": cur,
-                "was_cents": None,
-                "on_sale": False,
-            })
     return results
 
 
 def search_no_frills(query: str, store_external_id: str) -> list[dict]:
     html = fetch_search_page(query, store_external_id)
 
+    # Always dump the first response we get, so we have something to inspect
+    debug_dir = Path("scrapers/data")
+    debug_dir.mkdir(parents=True, exist_ok=True)
+    debug_path = debug_dir / "no_frills_first_response.html"
+    if not debug_path.exists():
+        debug_path.write_text(html)
+        log.info("Saved first response HTML to %s for inspection", debug_path)
+
     data = extract_next_data(html)
     if data:
         raw_products = find_products_in_next_data(data)
-        parsed = [extract_product_info(p) for p in raw_products]
-        parsed = [p for p in parsed if p]
+        log.debug("Found %d product-candidate dicts for '%s'", len(raw_products), query)
+        parsed = []
+        for p in raw_products:
+            info = extract_product_info(p)
+            if info:
+                parsed.append(info)
         if parsed:
-            log.debug("Parsed %d products from __NEXT_DATA__ for '%s'", len(parsed), query)
+            log.debug("Parsed %d real products from __NEXT_DATA__ for '%s'", len(parsed), query)
             return parsed
 
     parsed = parse_html_fallback(html)
@@ -181,11 +230,6 @@ def search_no_frills(query: str, store_external_id: str) -> list[dict]:
         log.debug("Parsed %d products from HTML fallback for '%s'", len(parsed), query)
     else:
         log.warning("No products found for '%s' (HTML: %d bytes)", query, len(html))
-        dump_path = Path("scrapers/data/no_frills_debug.html")
-        dump_path.parent.mkdir(parents=True, exist_ok=True)
-        if not dump_path.exists():
-            dump_path.write_text(html)
-            log.warning("Saved failing HTML to %s", dump_path)
 
     return parsed
 
