@@ -11,5 +11,5 @@ __pycache__
 .venv
 venv
 .vercel
-scrapers/data/*.json
+scrapers/data/*
 !scrapers/data/.gitkeep
