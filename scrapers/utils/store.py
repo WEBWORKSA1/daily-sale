@@ -4,8 +4,12 @@ Merge policy: existing SEED prices are preserved (so all 100 SKUs show
 something in the UI). Existing SCRAPER prices are DROPPED on each run —
 the new run is the source of truth for that retailer. This prevents stale
 bad data from previous scraper versions surviving fixes.
+
+Weekly-flyer model: each price can carry a valid_until date (the flyer's
+expiry, usually the next Wednesday). The UI shows "deals valid through X".
 """
 import json
+from datetime import date, timedelta
 from pathlib import Path
 from threading import Lock
 from typing import Optional
@@ -36,13 +40,25 @@ def get_stores_for_retailer(slug: str) -> list[dict]:
     return [s for s in load_config()["stores"] if s["retailer_slug"] == slug]
 
 
+def next_flyer_expiry() -> str:
+    """Canadian grocery flyers run Thu–Wed. Return the upcoming Wednesday (ISO date)."""
+    today = date.today()
+    # weekday(): Mon=0 ... Wed=2 ... Sun=6
+    days_until_wed = (2 - today.weekday()) % 7
+    if days_until_wed == 0:
+        days_until_wed = 7  # today is Wed → next Wed
+    return (today + timedelta(days=days_until_wed)).isoformat()
+
+
 def add_price(*, store_id: str, product_slug: str, price_cents: int,
-              was_price_cents: Optional[int], on_sale: bool, source: str) -> None:
+              was_price_cents: Optional[int], on_sale: bool, source: str,
+              valid_until: Optional[str] = None) -> None:
     with _lock:
         _buffer.append({
             "store_id": store_id, "product_slug": product_slug,
             "price_cents": price_cents, "was_price_cents": was_price_cents,
             "on_sale": on_sale, "source": source,
+            "valid_until": valid_until or next_flyer_expiry(),
         })
 
 
@@ -55,21 +71,12 @@ def flush(merge_with_seed: bool = True) -> dict:
     - Seed prices ('seed-*') from existing file are preserved as fallback
       for (store, product) keys not in the buffer.
     - Previous scraper prices are DISCARDED unless their store+product was
-      not scraped this run. This means: when scraper drops a SKU (e.g.
-      because v5 rejected it), the OLD bad scraper value goes away too.
-
-    Why: prevents stale bad data from earlier scraper versions polluting
-    the dataset after fixes.
+      not scraped this run.
     """
-    from datetime import date
-
     out_path = DATA / "prices" / "latest.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Collect which (store, product) pairs the current scrape touched
     with _lock:
-        new_keys = {(p["store_id"], p["product_slug"]) for p in _buffer}
-        # Group buffered prices by which retailer they came from
         retailers_scraped = {p["source"].replace("scraper:", "")
                              for p in _buffer if p["source"].startswith("scraper:")}
 
@@ -77,28 +84,17 @@ def flush(merge_with_seed: bool = True) -> dict:
 
     if merge_with_seed and out_path.exists():
         existing = json.loads(out_path.read_text())
-        config = load_config()
-        store_to_retailer = {s["id"]: s["retailer_slug"] for s in config["stores"]}
-
         for p in existing.get("prices", []):
             key = (p["store_id"], p["product_slug"])
             src = p.get("source", "")
-
-            # Always keep seed prices that weren't re-scraped
             if src.startswith("seed-"):
                 final_prices[key] = p
                 continue
-
-            # For scraper prices: keep ONLY if this retailer wasn't scraped this run
-            # (i.e., we're not touching this retailer's data, so preserve last good state)
             if src.startswith("scraper:"):
                 retailer = src.replace("scraper:", "")
                 if retailer not in retailers_scraped:
-                    # This retailer wasn't scraped this run — keep its last data
                     final_prices[key] = p
-                # else: drop the old scraper data, let the new buffer overwrite
 
-    # Now apply the new buffer (always wins)
     with _lock:
         for p in _buffer:
             final_prices[(p["store_id"], p["product_slug"])] = p
@@ -107,6 +103,7 @@ def flush(merge_with_seed: bool = True) -> dict:
     rows = list(final_prices.values())
     payload = {
         "generated_at": date.today().isoformat(),
+        "flyer_week_expiry": next_flyer_expiry(),
         "store_count": len({r["store_id"] for r in rows}),
         "product_count": len({r["product_slug"] for r in rows}),
         "price_count": len(rows),
