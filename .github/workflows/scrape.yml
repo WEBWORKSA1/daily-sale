@@ -25,12 +25,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r scrapers/requirements.txt
 
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium
+          playwright install-deps chromium
+
       - name: Run No Frills scraper
         run: python scrapers/retailers/no_frills.py --verbose
         continue-on-error: true
 
-      - name: Run Food Basics scraper
-        run: python scrapers/retailers/food_basics.py --verbose
+      - name: Run Food Basics scraper (Playwright)
+        run: python scrapers/retailers/food_basics_pw.py --verbose
         continue-on-error: true
         
       - name: Commit updated prices
