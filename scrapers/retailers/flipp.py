@@ -1,5 +1,5 @@
 """
-Flipp (Wishabi) flyer scraper — BRIDGE SOURCE. v5: per-flyer diagnostics.
+Flipp (Wishabi) flyer scraper — BRIDGE SOURCE. v6: hybrid anchor+fuzzy matching.
 
 ⚠️ Sources from Flipp's backend, an aggregator. Owner decision (2026-05-22):
 Phase-1 bridge. PLANNED REPLACEMENT: retailer-direct. Objection logged.
@@ -7,12 +7,12 @@ Phase-1 bridge. PLANNED REPLACEMENT: retailer-direct. Objection logged.
 PROGRESS:
 - v2: flyer ENUMERATION works (116 flyers, 78 merchants incl. Food Basics). ✓
 - v3: /items/search?flyer_id= IGNORES flyer_id (returns generic ecom). Dead end.
-- v4: shape D works — dam.flippenterprise.net/api/flipp/flyers/{id}/flyer_items.
-  Wrote 34 across Sobeys/FreshCo/Walmart/Giant Tiger. But Food Basics wrote 0
-  despite its flyer being fetched.
-- v5: per-flyer diagnostics. For EACH wanted flyer, record item count + sample
-  item names + how many had usable name+price. Dump Food Basics' full item
-  list raw so we see why it doesn't match (different name structure? prices?).
+- v4: shape D works — dam.flippenterprise.net/api/flipp/flyers/{id}/flyer_items. ✓
+- v5: per-flyer diagnostics — found Food Basics returns 391 items with brand-led
+  names ("SELECTION SALTED OR UNSALTED BUTTER") that fuzzy-78 can't match.
+- v6: HYBRID matching. If a product slug has an anchor spec (utils/anchors.py),
+  require its core keyword(s) as whole words + reject lookalikes; else fall back
+  to fuzzy token_set_ratio >= 78. Anchors tested vs real Food Basics flyer.
 
 Flyer-item endpoint (locked): shape D.
 """
@@ -27,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils import http, match, store
+from utils.anchors import ANCHORS, anchor_match
 
 log = logging.getLogger("flipp")
 RETAILER_SLUG = "flipp"
@@ -55,9 +56,9 @@ except Exception:
     MAX_PLAUSIBLE_CENTS = 10000
 
 _flyers_host = {"base": None}
-_item_shape = {"id": "D"}  # locked to D (proven in v4)
 
 REAL_ITEM_KEYS = ("flyer_items", "items")
+AUTO_MATCH_THRESHOLD = 78
 
 
 def get_range(slug: str):
@@ -154,11 +155,23 @@ def item_price(it: dict):
                            or it.get("sale_price") or it.get("item_price"))
 
 
+def match_product(name: str, product: dict):
+    """Hybrid: anchor match if slug has a spec, else fuzzy token_set_ratio >= 78.
+    Returns a comparable score (anchors return 100) or None."""
+    slug = product["slug"]
+    if slug in ANCHORS:
+        return 100 if anchor_match(name, slug) else None
+    canon = [{"id": product["rank"], "name": product["name"], "unit": product.get("unit", "")}]
+    mm = match.best_match(name, canon)
+    if mm and mm["score"] >= AUTO_MATCH_THRESHOLD:
+        return mm["score"]
+    return None
+
+
 def run(dry_run: bool = False) -> None:
     products = store.load_products()
     debug_dir = Path("scrapers/data")
     debug_dir.mkdir(parents=True, exist_ok=True)
-    AUTO_MATCH_THRESHOLD = 78
 
     flyers = fetch_flyers()
     log.info("Fetched %d flyers for %s via host %s", len(flyers), POSTAL, _flyers_host["base"])
@@ -185,7 +198,7 @@ def run(dry_run: bool = False) -> None:
 
     written = 0
     per_store_items = Counter()
-    flyer_diag = []  # per-flyer: merchant, item count, usable count, sample names
+    flyer_diag = []
 
     for fid, store_id, merchant, flyer in wanted:
         items = fetch_flyer_items(fid)
@@ -198,36 +211,18 @@ def run(dry_run: bool = False) -> None:
             if nm and pr:
                 usable.append((nm, pr, valid_to_of(flyer, it)))
 
-        diag = {
-            "merchant": merchant, "store_id": store_id, "flyer_id": fid,
-            "raw_items": len(items), "usable_items": len(usable),
-            "sample_names": [u[0] for u in usable[:20]],
-        }
-        flyer_diag.append(diag)
-        log.info("Flyer %s (%s): %d raw, %d usable", fid, merchant, len(items), len(usable))
-
-        # Dump Food Basics' full item list specifically
-        if "food basics" in merchant.lower():
-            (debug_dir / "flipp_foodbasics_items.json").write_text(json.dumps({
-                "merchant": merchant, "flyer_id": fid,
-                "raw_count": len(items),
-                "first_3_raw": items[:3],
-                "all_usable_names_prices": [{"name": u[0], "price": u[1] / 100} for u in usable],
-            }, indent=2))
-
+        store_written = 0
         for product in products:
             floor, ceiling = get_range(product["slug"])
-            canon = [{"id": product["rank"], "name": product["name"],
-                      "unit": product.get("unit", "")}]
-            best = None
+            best = None  # (name, price, valid_until, score)
             for nm, pr, vto in usable:
                 if not (floor <= pr <= ceiling):
                     continue
-                mm = match.best_match(nm, canon)
-                if not mm or mm["score"] < AUTO_MATCH_THRESHOLD:
+                sc = match_product(nm, product)
+                if sc is None:
                     continue
                 if best is None or pr < best[1]:
-                    best = (nm, pr, vto, mm["score"])
+                    best = (nm, pr, vto, sc)
             if not best:
                 continue
             nm, pr, vto, sc = best
@@ -240,7 +235,16 @@ def run(dry_run: bool = False) -> None:
                 source=f"flipp:{store_id.split('-')[0]}", valid_until=vto,
             )
             written += 1
+            store_written += 1
             per_store_items[store_id] += 1
+
+        flyer_diag.append({
+            "merchant": merchant, "store_id": store_id, "flyer_id": fid,
+            "raw_items": len(items), "usable_items": len(usable),
+            "matched": store_written,
+        })
+        log.info("Flyer %s (%s): %d raw, %d usable, %d matched",
+                 fid, merchant, len(items), len(usable), store_written)
 
     log.info("Done. Wrote %d across stores: %s", written, dict(per_store_items))
     (debug_dir / "flipp_summary.json").write_text(json.dumps({
