@@ -1,20 +1,16 @@
 """
-Food Basics scraper (Metro Inc. backend).
+Food Basics scraper (Metro Inc. backend) — proxy-enabled.
 
-Metro's site 403s bare HTTP requests, so this scraper:
-1. Opens a browser-like session (full Chrome headers + cookie jar)
-2. Warms up by hitting the homepage (collects session cookies)
-3. Then hits search with those cookies + proper Referer
+Metro 403s bare requests AND Playwright. Path B: route through a residential
+proxy (PacketStream) so the request comes from a real home IP that Akamai
+can't distinguish from a normal shopper.
 
-URL pattern (provided by user 2026-05-21):
+Set SCRAPER_PROXY_URL (GitHub secret) to enable. Without it, runs direct
+(and will get blocked — that's expected without the proxy).
+
+URL pattern:
     Search:  https://www.foodbasics.ca/search?filter={query}
-    Product: https://www.foodbasics.ca/aisles/.../p/{UPC}   (12-14 digit UPC)
-
-Prices are session/store-scoped. Without a set store we get default ON pricing,
-which is close enough for the Food Basics St. Catharines store (525 Welland Ave).
-
-NOTE: This is a PROBE. If GitHub Actions IP still gets 403 even with browser
-headers, we'll know Metro needs Playwright (and we'll defer this retailer).
+    Product: https://www.foodbasics.ca/aisles/.../p/{UPC}   (10-14 digit UPC)
 """
 from __future__ import annotations
 
@@ -35,10 +31,7 @@ RETAILER_SLUG = "food-basics"
 HOMEPAGE = "https://www.foodbasics.ca/"
 SEARCH_URL_TEMPLATE = "https://www.foodbasics.ca/search?filter={query}"
 
-PRODUCT_LINK_RE = re.compile(
-    r'href="(/aisles/[^"]+/p/(\d{10,14}))"',
-    re.IGNORECASE,
-)
+PRODUCT_LINK_RE = re.compile(r'href="(/aisles/[^"]+/p/(\d{10,14}))"', re.IGNORECASE)
 SALE_PRICE_RE = re.compile(
     r'sale[^$]{0,30}\$(\d+\.\d{2})[^$]{0,40}(?:was|reg|regular)[^$]{0,30}\$(\d+\.\d{2})',
     re.IGNORECASE,
@@ -131,13 +124,18 @@ def run(dry_run: bool = False) -> None:
     blocked = False
     AUTO_MATCH_THRESHOLD = 78
 
-    with http.make_browser_session() as client:
+    use_proxy = http.get_proxy_url() is not None
+    log.info("Proxy configured: %s", "YES" if use_proxy else "NO (direct — expect block)")
+
+    with http.make_browser_session(use_proxy=use_proxy) as client:
         try:
             warm = http.session_get(client, HOMEPAGE)
             log.info("Warm-up homepage: %d, %d cookies", warm.status_code, len(client.cookies))
         except Exception as e:
-            log.error("Warm-up failed: %s — Metro likely blocking this IP. Defer to Playwright.", e)
-            (debug_dir / "food_basics_blocked.txt").write_text(f"Warm-up failed: {e}")
+            log.error("Warm-up failed: %s — blocked even via proxy? Check SCRAPER_PROXY_URL.", e)
+            (debug_dir / "food_basics_blocked.txt").write_text(
+                f"Warm-up failed: {e}\nProxy was {'ON' if use_proxy else 'OFF'}."
+            )
             return
 
         for st in stores:
@@ -153,11 +151,12 @@ def run(dry_run: bool = False) -> None:
                     msg = str(e)
                     if "403" in msg:
                         blocked = True
-                        log.error("403 on '%s' — Metro blocking even with browser headers.", query)
+                        log.error("403 on '%s' even via proxy.", query)
                         (debug_dir / "food_basics_blocked.txt").write_text(
-                            f"403 even with browser session on query '{query}'.\n"
-                            f"Cookies collected: {len(client.cookies)}\n"
-                            f"Recommendation: Metro needs Playwright + possibly residential proxy."
+                            f"403 on query '{query}'.\nProxy was {'ON' if use_proxy else 'OFF'}.\n"
+                            f"Cookies: {len(client.cookies)}\n"
+                            "If proxy ON and still 403: Metro fingerprints browser too — "
+                            "need Playwright routed through the same proxy."
                         )
                         break
                     log.warning("Search failed for '%s': %s", query, e)
@@ -204,7 +203,7 @@ def run(dry_run: bool = False) -> None:
     log.info("Done. Wrote %d. No results: %d. Review: %d. Blocked: %s",
              written, len(no_results), len(review_log), blocked)
     summary = {
-        "wrote": written, "blocked": blocked,
+        "wrote": written, "blocked": blocked, "proxy_used": use_proxy,
         "no_results_count": len(no_results), "review_count": len(review_log),
         "no_results": no_results[:20], "review": review_log[:20],
     }
