@@ -2,13 +2,31 @@
   "generated_at": "2026-05-22",
   "flyer_week_expiry": "2026-05-27",
   "store_count": 5,
-  "product_count": 51,
-  "price_count": 65,
+  "product_count": 56,
+  "price_count": 68,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-2pct-4l",
-      "price_cents": 709,
+      "price_cents": 595,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-1pct-4l",
+      "price_cents": 595,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-skim-4l",
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -88,6 +106,15 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "buns-hotdog-8pk",
+      "price_cents": 359,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "oranges-navel-3lb",
       "price_cents": 749,
       "was_price_cents": null,
@@ -143,7 +170,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "spinach-baby-312g",
-      "price_cents": 500,
+      "price_cents": 400,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -187,24 +214,6 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "ground-beef-lean-lb",
-      "price_cents": 900,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "ground-beef-medium-lb",
-      "price_cents": 850,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
       "product_slug": "beef-striploin-lb",
       "price_cents": 1598,
       "was_price_cents": null,
@@ -216,6 +225,15 @@
       "store_id": "nofrills-blakes",
       "product_slug": "pork-tenderloin-lb",
       "price_cents": 593,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "sausage-breakfast-375g",
+      "price_cents": 351,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -259,6 +277,15 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "oil-canola-3l",
+      "price_cents": 900,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "jam-strawberry-500ml",
       "price_cents": 679,
       "was_price_cents": null,
@@ -286,15 +313,6 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "soup-tomato-540ml",
-      "price_cents": 319,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
       "product_slug": "ice-cream-1-5l",
       "price_cents": 550,
       "was_price_cents": null,
@@ -313,8 +331,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "juice-orange-1-75l",
-      "price_cents": 700,
+      "product_slug": "tea-orange-pekoe-72ct",
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -341,7 +359,16 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "laundry-detergent-2-95l",
-      "price_cents": 1300,
+      "price_cents": 2099,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "mustard-yellow-450ml",
+      "price_cents": 379,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
