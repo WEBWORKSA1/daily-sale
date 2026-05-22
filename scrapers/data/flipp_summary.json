@@ -1,10 +1,15 @@
 {
-  "host": "https://cdn-gateflipp.flippback.com/bf/flipp",
-  "item_shape": "A",
+  "flyers_host": "https://cdn-gateflipp.flippback.com/bf/flipp",
+  "item_shape": "D",
   "flyer_count": 116,
   "wanted_flyers": 10,
-  "wrote": 0,
-  "per_store": {},
+  "wrote": 34,
+  "per_store": {
+    "sobeys-glendale": 19,
+    "freshco-scott": 9,
+    "walmart-stcatharines": 4,
+    "gianttiger-stcatharines": 2
+  },
   "all_merchants": {
     "Metro": 5,
     "Home Hardware": 5,
