@@ -32,12 +32,21 @@ export function getKnownFsas(): string[] {
   return Array.from(new Set(stores.map((s) => s.postal_code.slice(0, 3)))).sort();
 }
 
+// For a single-city product, all St. Catharines FSAs share the "L2" region prefix.
+// We match on the 2-char region so ANY local postal shows ALL city stores — a
+// shopper comparing prices wants the whole city, not just their exact sub-zone.
+const REGION_PREFIX_LEN = 2;
+
 export function getCheapestForPostal(postalPrefix: string): {
   postal_prefix: string; stores_count: number; items: CheapestRow[]; generated_at: string; flyer_week_expiry: string | null;
 } {
   const { retailers, stores, products, prices } = load();
   const expiry = prices.flyer_week_expiry || null;
-  const matchingStores = stores.filter((s) => s.postal_code.slice(0, 3).toUpperCase() === postalPrefix.toUpperCase());
+  const region = postalPrefix.slice(0, REGION_PREFIX_LEN).toUpperCase();
+  // Match all stores in the same postal region (e.g. all "L2" = St. Catharines/Niagara).
+  const matchingStores = stores.filter(
+    (s) => s.postal_code.slice(0, REGION_PREFIX_LEN).toUpperCase() === region
+  );
   if (matchingStores.length === 0) {
     return { postal_prefix: postalPrefix, stores_count: 0, items: [], generated_at: prices.generated_at, flyer_week_expiry: expiry };
   }
