@@ -20,6 +20,12 @@ const CATEGORY_LABEL: Record<string, string> = {
   pantry: 'Pantry', frozen: 'Frozen', beverage: 'Beverages', household: 'Household'
 };
 
+function fmtDate(iso: string | null): string {
+  if (!iso) return '';
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-CA', { month: 'long', day: 'numeric' });
+}
+
 export default function PostalPage({ params }: { params: { postal: string } }) {
   const prefix = toPostalPrefix(params.postal);
   if (!prefix) {
@@ -32,7 +38,7 @@ export default function PostalPage({ params }: { params: { postal: string } }) {
   }
   const data = getCheapestForPostal(prefix);
   const items: CheapestRow[] = data.items;
-  const today = new Date().toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const validThrough = fmtDate(data.flyer_week_expiry);
   const byCategory = new Map<string, CheapestRow[]>();
   for (const i of items) {
     const arr = byCategory.get(i.product_category) || [];
@@ -44,18 +50,18 @@ export default function PostalPage({ params }: { params: { postal: string } }) {
     <main className="min-h-screen pb-20">
       <header className="px-6 md:px-12 pt-6 pb-3 rule-thick border-b border-ink">
         <div className="flex items-baseline justify-between">
-          <Link href="/" className="text-xs tracking-[0.2em] uppercase hover:underline">← CheapCart</Link>
-          <div className="text-xs tracking-[0.2em] uppercase">{today}</div>
+          <Link href="/smart-deals" className="text-xs tracking-[0.2em] uppercase hover:underline">← Smart Deals</Link>
+          <div className="text-xs tracking-[0.2em] uppercase">{validThrough ? `Valid through ${validThrough}` : 'This week'}</div>
         </div>
       </header>
       <section className="px-6 md:px-12 pt-10 pb-6">
         <p className="text-xs tracking-[0.25em] uppercase mb-4">
-          Today&apos;s Price Ledger · Postal {prefix} · {data.stores_count} stores
+          This Week&apos;s Deals · Postal {prefix} · {data.stores_count} stores
         </p>
         <h1 className="display text-6xl md:text-8xl font-black leading-[0.9] mb-6">
           {items.length > 0
             ? <>{items.length} items.<br/><span className="italic font-normal">Cheapest store, ranked.</span></>
-            : <>No prices yet for <span className="tag">{prefix}</span>.</>
+            : <>No deals yet for <span className="tag">{prefix}</span>.</>
           }
         </h1>
         {items.length > 0 && (
@@ -63,8 +69,8 @@ export default function PostalPage({ params }: { params: { postal: string } }) {
         )}
         {items.length === 0 && (
           <div className="mt-8 max-w-2xl">
-            <p className="text-lg">We launched in St. Catharines first. Available postal areas: L2N, L2S, L2T, L2M.</p>
-            <Link href="/" className="inline-block mt-6 underline">← Try another postal code</Link>
+            <p className="text-lg">We launched in St. Catharines first. Available postal areas: L2N, L2R, L2S, L2T, L2M.</p>
+            <Link href="/smart-deals" className="inline-block mt-6 underline">← Try another postal code</Link>
           </div>
         )}
       </section>
@@ -81,7 +87,7 @@ export default function PostalPage({ params }: { params: { postal: string } }) {
           ))}
           <section className="rule-thick pt-8 mt-8">
             <h3 className="display text-3xl md:text-4xl font-bold mb-3">Spotted a different price?</h3>
-            <p className="max-w-2xl mb-6">Prices change daily and our data isn&apos;t perfect. If you saw something different in-store today, tell us — every report makes the ledger sharper.</p>
+            <p className="max-w-2xl mb-6">Flyer prices shift week to week and our data isn&apos;t perfect. If you saw something different in-store this week, tell us — every report makes the deals sharper.</p>
             <Link href="/report" className="inline-block bg-ink text-paper px-6 py-3 text-sm tracking-[0.2em] uppercase font-bold hover:bg-cart transition">Report a Price →</Link>
           </section>
         </div>
