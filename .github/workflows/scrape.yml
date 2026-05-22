@@ -1,8 +1,9 @@
-name: Daily price scrape
+name: Weekly flyer scrape
 
 on:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "0 18 * * 3"   # Wednesday 2 PM ET
+    - cron: "0 10 * * 4"   # Thursday 6 AM ET
   workflow_dispatch:
 
 permissions:
@@ -11,7 +12,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -25,8 +26,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r scrapers/requirements.txt
 
-      - name: Run No Frills scraper
+      - name: Run No Frills scraper (retailer-direct)
         run: python scrapers/retailers/no_frills.py --verbose
+        continue-on-error: true
+
+      - name: Run Flipp scraper (Smart Deals bridge)
+        run: python scrapers/retailers/flipp.py --verbose
         continue-on-error: true
 
       - name: Commit updated prices
@@ -37,7 +42,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "data: daily price scrape $(date -u +%Y-%m-%d)"
+            git commit -m "data: flyer scrape $(date -u +%Y-%m-%d)"
             git push
             echo "Pushed updated prices."
           fi
