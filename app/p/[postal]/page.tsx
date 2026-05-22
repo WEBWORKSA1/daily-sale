@@ -1,18 +1,14 @@
 import Link from 'next/link';
 import { toPostalPrefix } from '@/lib/postal';
-import { getCheapestForPostal, getConfig } from '@/lib/data';
+import { getCheapestForPostal } from '@/lib/data';
 import type { CheapestRow } from '@/lib/types';
 import { ItemList } from '@/components/ItemList';
 import { TotalSavings } from '@/components/TotalSavings';
 
-export async function generateStaticParams() {
-  const { stores } = getConfig();
-  const fsas = Array.from(new Set(stores.map((s) => s.postal_code.slice(0, 3))));
-  return fsas.map((postal) => ({ postal }));
-}
-
-export const dynamic = 'force-static';
-export const dynamicParams = true;
+// Render on-demand and revalidate often so prices/winners always reflect the
+// latest scrape (data updates twice weekly). NOT force-static — that froze
+// prices at build time and showed stale "cheapest" winners.
+export const dynamic = 'force-dynamic';
 
 const CATEGORY_ORDER = ['produce', 'dairy', 'bakery', 'meat', 'pantry', 'frozen', 'beverage', 'household'];
 const CATEGORY_LABEL: Record<string, string> = {
@@ -69,7 +65,7 @@ export default function PostalPage({ params }: { params: { postal: string } }) {
         )}
         {items.length === 0 && (
           <div className="mt-8 max-w-2xl">
-            <p className="text-lg">We launched in St. Catharines first. Available postal areas: L2N, L2R, L2S, L2T, L2M.</p>
+            <p className="text-lg">We launched in St. Catharines first. Try any local postal code (L2…).</p>
             <Link href="/smart-deals" className="inline-block mt-6 underline">← Try another postal code</Link>
           </div>
         )}
