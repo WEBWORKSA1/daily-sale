@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'CheapCart — Today\'s Cheapest Groceries',
-  description: 'For the 100 things you actually buy, where is the cheapest store today? Postal-code-level price comparison across Canadian grocers.',
+  title: 'daily.sale — Spend less on the things you buy',
+  description: 'A growing collection of tools that find you the best price. Starting with grocery deals in St. Catharines.',
   openGraph: {
-    title: 'CheapCart',
-    description: 'Cheapest grocery prices, today, by postal code.'
+    title: 'daily.sale',
+    description: 'Spend less on the things you buy. Weekly grocery deals, ranked by store.'
   }
 };
 
