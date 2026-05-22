@@ -1,24 +1,24 @@
 """
-Flipp (Wishabi) flyer scraper — BRIDGE SOURCE.
+Flipp (Wishabi) flyer scraper — BRIDGE SOURCE. v2: flyer-enumeration approach.
 
-⚠️ This sources from Flipp's backend, an aggregator.
-Per explicit owner decision (2026-05-22): used as a Phase-1 bridge to prove the
-product. PLANNED REPLACEMENT: retailer-direct flyer scraping. Do not treat this
-as the permanent data source. Objection logged in build history.
+⚠️ Sources from Flipp's backend, an aggregator. Per explicit owner decision
+(2026-05-22): Phase-1 bridge to prove the product. PLANNED REPLACEMENT:
+retailer-direct flyer scraping. Objection logged in build history.
 
-Endpoints (Flipp app search backends):
-  - PRIMARY (current, used by flipp.com itself):
-      https://cdn-gateflipp.flippback.com/bf/flipp/items/search
-  - FALLBACK (older, still live):
-      https://backflipp.wishabi.com/flipp/items/search
-  Params: ?locale=en-ca&postal_code={POSTAL}&q={QUERY}
+WHY v2: v1 used items/search with our 100 product names and only read the
+`items` array. That MISSED Food Basics even though its flyer is on Flipp —
+because our search terms didn't match Food Basics' item titles. v2 instead:
+  1. ENUMERATE all flyers for the postal code  (GET /flyers?postal_code=)
+  2. For each flyer of a merchant we want, pull ALL its items
+     (GET /flyers/{flyer_id}/flyer_items)
+  3. Match those complete-flyer items against our 100 SKUs
+This reads entire flyers (not search-filtered), so we catch every merchant
+Flipp carries — Food Basics now, and the dozens of other stores later.
 
-Returns JSON: {"items": [{name, current_price, merchant, valid_from, valid_to,
-flyer_item_id, ...}, ...], "ecom_items": [...]}
-
-DIAGNOSTIC: dumps flipp_merchants.json = census of every unique merchant name
-seen across all queries (with hit counts), to see exactly which string Flipp
-uses for Food Basics (or confirm it carries none for this postal).
+Endpoints (Flipp's own web app uses these — from flipp.com page config):
+  flyers list:  https://cdn-gateflipp.flippback.com/bf/flipp/flyers?locale=en-ca&postal_code={P}
+  flyer items:  https://cdn-gateflipp.flippback.com/bf/flipp/flyers/{flyer_id}/flyer_items?locale=en-ca
+  (fallback host: backflipp.wishabi.com/flipp/...)
 """
 from __future__ import annotations
 
@@ -36,13 +36,13 @@ from utils import http, match, store
 log = logging.getLogger("flipp")
 RETAILER_SLUG = "flipp"
 
-# Primary = the endpoint flipp.com's own site uses now. Fallback = older one.
-SEARCH_URLS = [
-    "https://cdn-gateflipp.flippback.com/bf/flipp/items/search",
-    "https://backflipp.wishabi.com/flipp/items/search",
+HOSTS = [
+    "https://cdn-gateflipp.flippback.com/bf/flipp",
+    "https://backflipp.wishabi.com/flipp",
 ]
 POSTAL = "L2R3M3"  # St. Catharines
 
+# Merchants we map into the comparison (the ones we DON'T scrape retailer-direct).
 MERCHANT_TO_STORE = {
     "food basics": "foodbasics-welland",
     "walmart": "walmart-stcatharines",
@@ -50,7 +50,7 @@ MERCHANT_TO_STORE = {
     "freshco": "freshco-scott",
     "giant tiger": "gianttiger-stcatharines",
 }
-
+# Loblaw banners we scrape retailer-direct — skip in Flipp to avoid double-source.
 SKIP_MERCHANTS = ["no frills", "nofrills", "zehrs", "real canadian superstore", "superstore",
                   "independent", "fortinos", "valu-mart", "loblaws"]
 
@@ -61,18 +61,17 @@ except Exception:
     MIN_PLAUSIBLE_CENTS = 50
     MAX_PLAUSIBLE_CENTS = 10000
 
-# Remember which endpoint worked first, to avoid re-trying the dead one every query.
-_working_url = {"url": None}
+_host = {"base": None}  # remember which host works
 
 
 def get_range(slug: str):
     return PRICE_RANGES.get(slug, (MIN_PLAUSIBLE_CENTS, MAX_PLAUSIBLE_CENTS))
 
 
-def map_merchant(merchant_name: str):
-    if not merchant_name:
+def map_merchant(name: str):
+    if not name:
         return None
-    low = merchant_name.lower()
+    low = name.lower()
     for skip in SKIP_MERCHANTS:
         if skip in low:
             return None
@@ -82,22 +81,48 @@ def map_merchant(merchant_name: str):
     return None
 
 
-def fetch_flipp(query: str) -> list[dict]:
-    urls = [_working_url["url"]] if _working_url["url"] else SEARCH_URLS
-    for base in urls:
+def _get_json(path: str):
+    """GET {host}{path} trying each host; returns parsed JSON or None."""
+    hosts = [_host["base"]] if _host["base"] else HOSTS
+    for base in hosts:
         if not base:
             continue
-        url = f"{base}?locale=en-ca&postal_code={POSTAL}&q={quote(query)}"
+        url = f"{base}{path}"
         try:
             r = http.get(url, headers={"Accept": "application/json"})
             data = r.json()
-            items = list(data.get("items") or [])
-            if items or r.status_code == 200:
-                _working_url["url"] = base
-                return items
+            _host["base"] = base
+            return data
         except Exception as e:
-            log.debug("Endpoint %s failed for '%s': %s", base, query, e)
+            log.debug("host %s failed for %s: %s", base, path, e)
             continue
+    return None
+
+
+def fetch_flyers() -> list[dict]:
+    """All flyers live for the postal code. Each has id, merchant, valid dates."""
+    sep = "&" if "?" in "" else "?"
+    data = _get_json(f"/flyers?locale=en-ca&postal_code={POSTAL}")
+    if data is None:
+        return []
+    # Response may be a bare list or wrapped under a key
+    if isinstance(data, list):
+        return data
+    for key in ("flyers", "items", "data"):
+        if isinstance(data.get(key), list):
+            return data[key]
+    return []
+
+
+def fetch_flyer_items(flyer_id) -> list[dict]:
+    data = _get_json(f"/flyers/{flyer_id}/flyer_items?locale=en-ca")
+    if data is None:
+        return []
+    if isinstance(data, list):
+        return data
+    for key in ("items", "flyer_items", "data"):
+        if isinstance(data.get(key), list):
+            return data[key]
     return []
 
 
@@ -110,118 +135,129 @@ def normalize_price(value):
         return None
 
 
+def merchant_of(flyer: dict) -> str:
+    return (flyer.get("merchant") or flyer.get("merchant_name")
+            or flyer.get("name") or "").strip()
+
+
+def valid_to_of(flyer: dict, item: dict):
+    v = (item.get("valid_to") or item.get("end_date")
+         or flyer.get("valid_to") or flyer.get("end_date"))
+    return v[:10] if isinstance(v, str) else None
+
+
+def item_name(it: dict) -> str:
+    return (it.get("name") or it.get("title") or it.get("description") or "").strip()
+
+
+def item_price(it: dict):
+    return normalize_price(it.get("current_price") or it.get("price")
+                           or it.get("sale_price") or it.get("item_price"))
+
+
 def run(dry_run: bool = False) -> None:
     products = store.load_products()
-    written = 0
-    no_results = []
-    skipped_merchant = 0
-    merchant_census = Counter()
-    foodbasics_samples = []
     debug_dir = Path("scrapers/data")
     debug_dir.mkdir(parents=True, exist_ok=True)
     AUTO_MATCH_THRESHOLD = 78
-    first_dumped = False
 
-    for product in products:
-        query = product["name"]
-        floor, ceiling = get_range(product["slug"])
-        try:
-            items = fetch_flipp(query)
-        except Exception as e:
-            log.warning("Flipp search failed for '%s': %s", query, e)
-            continue
+    flyers = fetch_flyers()
+    log.info("Fetched %d flyers for %s via host %s", len(flyers), POSTAL, _host["base"])
 
-        if not first_dumped and items:
-            (debug_dir / "flipp_first_response.json").write_text(json.dumps(items[:5], indent=2))
-            first_dumped = True
+    # Census of every merchant Flipp carries here (for the "dozens of stores" map)
+    all_merchants = Counter()
+    for f in flyers:
+        m = merchant_of(f)
+        if m:
+            all_merchants[m] += 1
 
-        if not items:
-            no_results.append(query)
-            continue
+    # Dump the full flyer list + merchant census for inspection
+    (debug_dir / "flipp_flyers.json").write_text(json.dumps({
+        "postal": POSTAL, "host": _host["base"],
+        "flyer_count": len(flyers),
+        "all_merchants": dict(all_merchants.most_common()),
+        "sample_flyer": flyers[0] if flyers else None,
+    }, indent=2))
 
-        canon = [{"id": product["rank"], "name": product["name"], "unit": product.get("unit", "")}]
-        best_per_store = {}
+    if not flyers:
+        log.error("No flyers returned — endpoint shape differs. See flipp_flyers.json (empty).")
+        return
 
+    # Which flyers map to a store we want?
+    wanted = []
+    for f in flyers:
+        m = merchant_of(f)
+        sid = map_merchant(m)
+        if sid:
+            fid = f.get("id") or f.get("flyer_id")
+            if fid is not None:
+                wanted.append((fid, sid, m, f))
+
+    log.info("Matched %d flyers to our stores: %s",
+             len(wanted), sorted({w[2] for w in wanted}))
+
+    written = 0
+    per_store_items = Counter()
+    first_items_dumped = False
+
+    for fid, store_id, merchant, flyer in wanted:
+        items = fetch_flyer_items(fid)
+        if not first_items_dumped and items:
+            (debug_dir / "flipp_flyer_items_sample.json").write_text(
+                json.dumps(items[:8], indent=2))
+            first_items_dumped = True
+        log.info("Flyer %s (%s -> %s): %d items", fid, merchant, store_id, len(items))
+
+        # Build candidate (name, price) list once per flyer
+        flyer_items = []
         for it in items:
-            merchant = it.get("merchant") or it.get("merchant_name") or ""
-            if merchant:
-                merchant_census[merchant] += 1
-                if "food" in merchant.lower() or "basics" in merchant.lower():
-                    if len(foodbasics_samples) < 10:
-                        foodbasics_samples.append({
-                            "merchant": merchant,
-                            "name": it.get("name"),
-                            "current_price": it.get("current_price"),
-                            "valid_to": it.get("valid_to"),
-                        })
+            nm = item_name(it)
+            pr = item_price(it)
+            if nm and pr:
+                flyer_items.append((nm, pr, valid_to_of(flyer, it)))
 
-            store_id = map_merchant(merchant)
-            if not store_id:
-                skipped_merchant += 1
+        # Match each of our products against this flyer's items
+        for product in products:
+            floor, ceiling = get_range(product["slug"])
+            canon = [{"id": product["rank"], "name": product["name"],
+                      "unit": product.get("unit", "")}]
+            best = None
+            for nm, pr, vto in flyer_items:
+                if not (floor <= pr <= ceiling):
+                    continue
+                mm = match.best_match(nm, canon)
+                if not mm or mm["score"] < AUTO_MATCH_THRESHOLD:
+                    continue
+                if best is None or pr < best[1]:
+                    best = (nm, pr, vto, mm["score"])
+            if not best:
                 continue
-
-            name = (it.get("name") or it.get("title") or "").strip()
-            if not name:
-                continue
-            price = normalize_price(it.get("current_price") or it.get("price"))
-            if not price or not (floor <= price <= ceiling):
-                continue
-
-            m = match.best_match(name, canon)
-            if not m or m["score"] < AUTO_MATCH_THRESHOLD:
-                continue
-
-            valid_to = it.get("valid_to") or it.get("end_date")
-            valid_until = valid_to[:10] if isinstance(valid_to, str) else None
-
-            prev = best_per_store.get(store_id)
-            cand = {"name": name, "price_cents": price, "score": m["score"],
-                    "valid_until": valid_until, "merchant": merchant}
-            if not prev or price < prev["price_cents"]:
-                best_per_store[store_id] = cand
-
-        if not best_per_store:
-            no_results.append(query)
-            continue
-
-        for store_id, cand in best_per_store.items():
+            nm, pr, vto, sc = best
             if dry_run:
                 log.info("[dry] %s @ %s -> %s = $%.2f (valid %s)",
-                         product["name"], store_id, cand["name"],
-                         cand["price_cents"] / 100, cand["valid_until"] or "?")
+                         product["name"], store_id, nm, pr / 100, vto or "?")
                 continue
             store.add_price(
                 store_id=store_id,
                 product_slug=product["slug"],
-                price_cents=cand["price_cents"],
+                price_cents=pr,
                 was_price_cents=None,
                 on_sale=True,
                 source=f"flipp:{store_id.split('-')[0]}",
-                valid_until=cand["valid_until"],
+                valid_until=vto,
             )
             written += 1
+            per_store_items[store_id] += 1
 
-    log.info("Done via endpoint %s. Wrote %d. No results: %d. Skipped merchants: %d",
-             _working_url["url"], written, len(no_results), skipped_merchant)
-    log.info("Merchant census (top 30): %s",
-             ", ".join(f"{m}({c})" for m, c in merchant_census.most_common(30)))
-    if foodbasics_samples:
-        log.info("FOOD BASICS-like merchants FOUND: %s",
-                 sorted({s["merchant"] for s in foodbasics_samples}))
-    else:
-        log.info("NO Food Basics-like merchant appeared for postal %s", POSTAL)
-
+    log.info("Done. Wrote %d flyer-deal prices across stores: %s",
+             written, dict(per_store_items))
     (debug_dir / "flipp_summary.json").write_text(json.dumps({
-        "endpoint_used": _working_url["url"],
-        "wrote": written, "no_results_count": len(no_results),
-        "skipped_merchant": skipped_merchant, "no_results": no_results[:25],
-    }, indent=2))
-    (debug_dir / "flipp_merchants.json").write_text(json.dumps({
-        "postal": POSTAL,
-        "endpoint_used": _working_url["url"],
-        "unique_merchant_count": len(merchant_census),
-        "merchant_census": dict(merchant_census.most_common()),
-        "foodbasics_like_samples": foodbasics_samples,
+        "host": _host["base"],
+        "flyer_count": len(flyers),
+        "wanted_flyers": len(wanted),
+        "wrote": written,
+        "per_store": dict(per_store_items),
+        "all_merchants": dict(all_merchants.most_common()),
     }, indent=2))
 
 
