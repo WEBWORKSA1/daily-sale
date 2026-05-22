@@ -13,3 +13,6 @@ venv
 .vercel
 scrapers/data/*
 !scrapers/data/.gitkeep
+!scrapers/data/flipp_flyers.json
+!scrapers/data/flipp_summary.json
+!scrapers/data/flipp_flyer_items_sample.json
