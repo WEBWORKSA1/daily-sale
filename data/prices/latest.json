@@ -2,31 +2,13 @@
   "generated_at": "2026-05-22",
   "flyer_week_expiry": "2026-05-27",
   "store_count": 5,
-  "product_count": 56,
+  "product_count": 54,
   "price_count": 68,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-2pct-4l",
-      "price_cents": 595,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "milk-1pct-4l",
-      "price_cents": 595,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "milk-skim-4l",
-      "price_cents": 549,
+      "price_cents": 709,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -170,7 +152,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "spinach-baby-312g",
-      "price_cents": 400,
+      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -214,6 +196,15 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "chicken-breast-bnls-skls-lb",
+      "price_cents": 900,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "beef-striploin-lb",
       "price_cents": 1598,
       "was_price_cents": null,
@@ -241,7 +232,7 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "deli-turkey-175g",
+      "product_slug": "deli-ham-175g",
       "price_cents": 550,
       "was_price_cents": null,
       "on_sale": false,
@@ -252,6 +243,15 @@
       "store_id": "nofrills-blakes",
       "product_slug": "salmon-atlantic-lb",
       "price_cents": 1600,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -277,8 +277,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "oil-canola-3l",
-      "price_cents": 900,
+      "product_slug": "oil-olive-1l",
+      "price_cents": 1700,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -288,6 +288,15 @@
       "store_id": "nofrills-blakes",
       "product_slug": "jam-strawberry-500ml",
       "price_cents": 679,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "honey-1kg",
+      "price_cents": 629,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -313,6 +322,15 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "soup-tomato-540ml",
+      "price_cents": 319,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "ice-cream-1-5l",
       "price_cents": 550,
       "was_price_cents": null,
@@ -324,24 +342,6 @@
       "store_id": "nofrills-blakes",
       "product_slug": "coffee-ground-930g",
       "price_cents": 1899,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "tea-orange-pekoe-72ct",
-      "price_cents": 549,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "juice-apple-1-75l",
-      "price_cents": 300,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
