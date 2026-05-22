@@ -3,12 +3,12 @@
   "flyer_week_expiry": "2026-05-27",
   "store_count": 5,
   "product_count": 51,
-  "price_count": 64,
+  "price_count": 65,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-2pct-4l",
-      "price_cents": 595,
+      "price_cents": 709,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -26,7 +26,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "eggs-large-18",
-      "price_cents": 1021,
+      "price_cents": 698,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -79,8 +79,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "buns-hotdog-8pk",
-      "price_cents": 359,
+      "product_slug": "tortillas-flour-10pk",
+      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -133,6 +133,15 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "lettuce-romaine-3pk",
+      "price_cents": 799,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "spinach-baby-312g",
       "price_cents": 500,
       "was_price_cents": null,
@@ -178,6 +187,24 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "ground-beef-lean-lb",
+      "price_cents": 900,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "ground-beef-medium-lb",
+      "price_cents": 850,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "beef-striploin-lb",
       "price_cents": 1598,
       "was_price_cents": null,
@@ -196,8 +223,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "sausage-breakfast-375g",
-      "price_cents": 351,
+      "product_slug": "deli-turkey-175g",
+      "price_cents": 550,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -207,15 +234,6 @@
       "store_id": "nofrills-blakes",
       "product_slug": "salmon-atlantic-lb",
       "price_cents": 1600,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "pasta-sauce-tomato-650ml",
-      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -277,15 +295,6 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "beans-canned-540ml",
-      "price_cents": 199,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
       "product_slug": "ice-cream-1-5l",
       "price_cents": 550,
       "was_price_cents": null,
@@ -304,15 +313,6 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "tea-orange-pekoe-72ct",
-      "price_cents": 549,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-05-27"
-    },
-    {
-      "store_id": "nofrills-blakes",
       "product_slug": "juice-orange-1-75l",
       "price_cents": 700,
       "was_price_cents": null,
@@ -322,8 +322,17 @@
     },
     {
       "store_id": "nofrills-blakes",
+      "product_slug": "juice-apple-1-75l",
+      "price_cents": 300,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills",
+      "valid_until": "2026-05-27"
+    },
+    {
+      "store_id": "nofrills-blakes",
       "product_slug": "paper-towel-6-roll",
-      "price_cents": 1300,
+      "price_cents": 800,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
@@ -332,7 +341,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "laundry-detergent-2-95l",
-      "price_cents": 2099,
+      "price_cents": 1300,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
