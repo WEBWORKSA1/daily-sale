@@ -1,30 +1,24 @@
 """
 Flipp (Wishabi) flyer scraper — BRIDGE SOURCE.
 
-⚠️ This sources from Flipp's backend (backflipp.wishabi.com), an aggregator.
+⚠️ This sources from Flipp's backend, an aggregator.
 Per explicit owner decision (2026-05-22): used as a Phase-1 bridge to prove the
 product. PLANNED REPLACEMENT: retailer-direct flyer scraping. Do not treat this
 as the permanent data source. Objection logged in build history.
 
-Endpoint (public Flipp app search backend):
-    GET https://backflipp.wishabi.com/flipp/items/search
-        ?locale=en-ca&postal_code={POSTAL}&q={QUERY}
+Endpoints (Flipp app search backends):
+  - PRIMARY (current, used by flipp.com itself):
+      https://cdn-gateflipp.flippback.com/bf/flipp/items/search
+  - FALLBACK (older, still live):
+      https://backflipp.wishabi.com/flipp/items/search
+  Params: ?locale=en-ca&postal_code={POSTAL}&q={QUERY}
 
 Returns JSON: {"items": [{name, current_price, merchant, valid_from, valid_to,
 flyer_item_id, ...}, ...], "ecom_items": [...]}
 
-Strategy:
-- Query each of our 100 canonical SKUs
-- Keep only results from merchants we DON'T scrape retailer-direct
-  (Food Basics, Walmart, Sobeys, FreshCo, Giant Tiger). Loblaw banners
-  (No Frills, Zehrs, Superstore) are scraped direct, so we skip them here
-  to avoid double-sourcing.
-- Map Flipp merchant names → our store IDs
-- Carry valid_to → valid_until (weekly flyer model)
-
 DIAGNOSTIC: dumps flipp_merchants.json = census of every unique merchant name
-seen across all queries (with hit counts). Lets us see exactly what string
-Flipp uses for Food Basics (or confirm it carries none for this postal).
+seen across all queries (with hit counts), to see exactly which string Flipp
+uses for Food Basics (or confirm it carries none for this postal).
 """
 from __future__ import annotations
 
@@ -42,7 +36,11 @@ from utils import http, match, store
 log = logging.getLogger("flipp")
 RETAILER_SLUG = "flipp"
 
-SEARCH_URL = "https://backflipp.wishabi.com/flipp/items/search"
+# Primary = the endpoint flipp.com's own site uses now. Fallback = older one.
+SEARCH_URLS = [
+    "https://cdn-gateflipp.flippback.com/bf/flipp/items/search",
+    "https://backflipp.wishabi.com/flipp/items/search",
+]
 POSTAL = "L2R3M3"  # St. Catharines
 
 MERCHANT_TO_STORE = {
@@ -63,6 +61,9 @@ except Exception:
     MIN_PLAUSIBLE_CENTS = 50
     MAX_PLAUSIBLE_CENTS = 10000
 
+# Remember which endpoint worked first, to avoid re-trying the dead one every query.
+_working_url = {"url": None}
+
 
 def get_range(slug: str):
     return PRICE_RANGES.get(slug, (MIN_PLAUSIBLE_CENTS, MAX_PLAUSIBLE_CENTS))
@@ -82,13 +83,22 @@ def map_merchant(merchant_name: str):
 
 
 def fetch_flipp(query: str) -> list[dict]:
-    url = f"{SEARCH_URL}?locale=en-ca&postal_code={POSTAL}&q={quote(query)}"
-    r = http.get(url, headers={"Accept": "application/json"})
-    try:
-        data = r.json()
-    except Exception:
-        return []
-    return list(data.get("items") or [])
+    urls = [_working_url["url"]] if _working_url["url"] else SEARCH_URLS
+    for base in urls:
+        if not base:
+            continue
+        url = f"{base}?locale=en-ca&postal_code={POSTAL}&q={quote(query)}"
+        try:
+            r = http.get(url, headers={"Accept": "application/json"})
+            data = r.json()
+            items = list(data.get("items") or [])
+            if items or r.status_code == 200:
+                _working_url["url"] = base
+                return items
+        except Exception as e:
+            log.debug("Endpoint %s failed for '%s': %s", base, query, e)
+            continue
+    return []
 
 
 def normalize_price(value):
@@ -105,8 +115,8 @@ def run(dry_run: bool = False) -> None:
     written = 0
     no_results = []
     skipped_merchant = 0
-    merchant_census = Counter()       # every merchant name seen -> count
-    foodbasics_samples = []           # raw items whose merchant looks like food basics
+    merchant_census = Counter()
+    foodbasics_samples = []
     debug_dir = Path("scrapers/data")
     debug_dir.mkdir(parents=True, exist_ok=True)
     AUTO_MATCH_THRESHOLD = 78
@@ -134,7 +144,6 @@ def run(dry_run: bool = False) -> None:
 
         for it in items:
             merchant = it.get("merchant") or it.get("merchant_name") or ""
-            # DIAGNOSTIC census
             if merchant:
                 merchant_census[merchant] += 1
                 if "food" in merchant.lower() or "basics" in merchant.lower():
@@ -192,22 +201,24 @@ def run(dry_run: bool = False) -> None:
             )
             written += 1
 
-    log.info("Done. Wrote %d flyer-deal prices. No results: %d. Skipped merchants: %d",
-             written, len(no_results), skipped_merchant)
-    log.info("Merchant census (top 25): %s",
-             ", ".join(f"{m}({c})" for m, c in merchant_census.most_common(25)))
+    log.info("Done via endpoint %s. Wrote %d. No results: %d. Skipped merchants: %d",
+             _working_url["url"], written, len(no_results), skipped_merchant)
+    log.info("Merchant census (top 30): %s",
+             ", ".join(f"{m}({c})" for m, c in merchant_census.most_common(30)))
     if foodbasics_samples:
         log.info("FOOD BASICS-like merchants FOUND: %s",
                  sorted({s["merchant"] for s in foodbasics_samples}))
     else:
-        log.info("NO Food Basics-like merchant appeared in any query for postal %s", POSTAL)
+        log.info("NO Food Basics-like merchant appeared for postal %s", POSTAL)
 
     (debug_dir / "flipp_summary.json").write_text(json.dumps({
+        "endpoint_used": _working_url["url"],
         "wrote": written, "no_results_count": len(no_results),
         "skipped_merchant": skipped_merchant, "no_results": no_results[:25],
     }, indent=2))
     (debug_dir / "flipp_merchants.json").write_text(json.dumps({
         "postal": POSTAL,
+        "endpoint_used": _working_url["url"],
         "unique_merchant_count": len(merchant_census),
         "merchant_census": dict(merchant_census.most_common()),
         "foodbasics_like_samples": foodbasics_samples,
