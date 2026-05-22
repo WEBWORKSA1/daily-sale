@@ -21,6 +21,10 @@ Strategy:
   to avoid double-sourcing.
 - Map Flipp merchant names → our store IDs
 - Carry valid_to → valid_until (weekly flyer model)
+
+DIAGNOSTIC: dumps flipp_merchants.json = census of every unique merchant name
+seen across all queries (with hit counts). Lets us see exactly what string
+Flipp uses for Food Basics (or confirm it carries none for this postal).
 """
 from __future__ import annotations
 
@@ -28,6 +32,7 @@ import argparse
 import json
 import logging
 import sys
+from collections import Counter
 from pathlib import Path
 from urllib.parse import quote
 
@@ -100,6 +105,8 @@ def run(dry_run: bool = False) -> None:
     written = 0
     no_results = []
     skipped_merchant = 0
+    merchant_census = Counter()       # every merchant name seen -> count
+    foodbasics_samples = []           # raw items whose merchant looks like food basics
     debug_dir = Path("scrapers/data")
     debug_dir.mkdir(parents=True, exist_ok=True)
     AUTO_MATCH_THRESHOLD = 78
@@ -127,6 +134,18 @@ def run(dry_run: bool = False) -> None:
 
         for it in items:
             merchant = it.get("merchant") or it.get("merchant_name") or ""
+            # DIAGNOSTIC census
+            if merchant:
+                merchant_census[merchant] += 1
+                if "food" in merchant.lower() or "basics" in merchant.lower():
+                    if len(foodbasics_samples) < 10:
+                        foodbasics_samples.append({
+                            "merchant": merchant,
+                            "name": it.get("name"),
+                            "current_price": it.get("current_price"),
+                            "valid_to": it.get("valid_to"),
+                        })
+
             store_id = map_merchant(merchant)
             if not store_id:
                 skipped_merchant += 1
@@ -175,9 +194,23 @@ def run(dry_run: bool = False) -> None:
 
     log.info("Done. Wrote %d flyer-deal prices. No results: %d. Skipped merchants: %d",
              written, len(no_results), skipped_merchant)
+    log.info("Merchant census (top 25): %s",
+             ", ".join(f"{m}({c})" for m, c in merchant_census.most_common(25)))
+    if foodbasics_samples:
+        log.info("FOOD BASICS-like merchants FOUND: %s",
+                 sorted({s["merchant"] for s in foodbasics_samples}))
+    else:
+        log.info("NO Food Basics-like merchant appeared in any query for postal %s", POSTAL)
+
     (debug_dir / "flipp_summary.json").write_text(json.dumps({
         "wrote": written, "no_results_count": len(no_results),
         "skipped_merchant": skipped_merchant, "no_results": no_results[:25],
+    }, indent=2))
+    (debug_dir / "flipp_merchants.json").write_text(json.dumps({
+        "postal": POSTAL,
+        "unique_merchant_count": len(merchant_census),
+        "merchant_census": dict(merchant_census.most_common()),
+        "foodbasics_like_samples": foodbasics_samples,
     }, indent=2))
 
 
