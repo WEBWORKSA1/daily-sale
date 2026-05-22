@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-21",
+  "generated_at": "2026-05-22",
   "store_count": 1,
-  "product_count": 54,
-  "price_count": 54,
+  "product_count": 57,
+  "price_count": 57,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-2pct-4l",
-      "price_cents": 578,
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -23,7 +23,15 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-skim-4l",
-      "price_cents": 549,
+      "price_cents": 644,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "milk-homo-4l",
+      "price_cents": 745,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -47,7 +55,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "cheese-shredded-mozza-320g",
-      "price_cents": 579,
+      "price_cents": 749,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -55,7 +63,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "yogurt-greek-500g",
-      "price_cents": 600,
+      "price_cents": 729,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -96,6 +104,14 @@
       "store_id": "nofrills-blakes",
       "product_slug": "english-muffins-6pk",
       "price_cents": 200,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "tortillas-flour-10pk",
+      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -159,7 +175,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "lettuce-romaine-3pk",
-      "price_cents": 799,
+      "price_cents": 399,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -254,14 +270,6 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "sausage-breakfast-375g",
-      "price_cents": 351,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills"
-    },
-    {
-      "store_id": "nofrills-blakes",
       "product_slug": "deli-ham-175g",
       "price_cents": 550,
       "was_price_cents": null,
@@ -304,6 +312,14 @@
       "store_id": "nofrills-blakes",
       "product_slug": "pasta-spaghetti-900g",
       "price_cents": 200,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 500,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -359,7 +375,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "maple-syrup-540ml",
-      "price_cents": 1300,
+      "price_cents": 1000,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -368,6 +384,14 @@
       "store_id": "nofrills-blakes",
       "product_slug": "oats-quick-1kg",
       "price_cents": 400,
+      "was_price_cents": null,
+      "on_sale": false,
+      "source": "scraper:no-frills"
+    },
+    {
+      "store_id": "nofrills-blakes",
+      "product_slug": "soup-tomato-540ml",
+      "price_cents": 149,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -406,8 +430,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "juice-apple-1-75l",
-      "price_cents": 300,
+      "product_slug": "juice-orange-1-75l",
+      "price_cents": 700,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -415,7 +439,7 @@
     {
       "store_id": "nofrills-blakes",
       "product_slug": "paper-towel-6-roll",
-      "price_cents": 800,
+      "price_cents": 1300,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
@@ -430,8 +454,8 @@
     },
     {
       "store_id": "nofrills-blakes",
-      "product_slug": "mustard-yellow-450ml",
-      "price_cents": 379,
+      "product_slug": "ketchup-1l",
+      "price_cents": 579,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills"
