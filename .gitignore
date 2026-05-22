@@ -15,11 +15,4 @@ scrapers/data/*
 !scrapers/data/.gitkeep
 !scrapers/data/flipp_flyers.json
 !scrapers/data/flipp_summary.json
-!scrapers/data/flipp_flyer_items_sample.json
-!scrapers/data/flipp_itemfetch_raw_A.json
-!scrapers/data/flipp_itemfetch_raw_B.json
-!scrapers/data/flipp_itemfetch_raw_C.json
-!scrapers/data/flipp_itemfetch_raw_D.json
-!scrapers/data/flipp_itemfetch_raw_E.json
-!scrapers/data/flipp_itemfetch_raw_F.json
-!scrapers/data/flipp_itemfetch_raw_G.json
+!scrapers/data/flipp_foodbasics_items.json
