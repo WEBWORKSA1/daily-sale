@@ -1,16 +1,23 @@
 """
-Flipp (Wishabi) flyer scraper — BRIDGE SOURCE. v3: flyer-enum + robust item fetch.
+Flipp (Wishabi) flyer scraper — BRIDGE SOURCE. v4: dam host item fetch.
 
 ⚠️ Sources from Flipp's backend, an aggregator. Owner decision (2026-05-22):
 Phase-1 bridge. PLANNED REPLACEMENT: retailer-direct. Objection logged.
 
-v2 proved flyer ENUMERATION works (116 flyers, 78 merchants incl. Food Basics)
-but item-fetch returned 0 — wrong item endpoint. v3 tries multiple known Flipp
-item-endpoint shapes per flyer and dumps the first raw response for inspection:
-  A) /items/search?flyer_id={id}&locale=&postal_code=   (search filtered by flyer)
-  B) /flyers/{id}?locale=                                 (flyer w/ embedded items)
-  C) /flyers/{id}/flyer_items?locale=                     (v2's guess)
-First shape that yields items wins and is reused for all flyers.
+PROGRESS:
+- v2: flyer ENUMERATION works (116 flyers, 78 merchants incl. Food Basics). ✓
+- v3: found /items/search?flyer_id= IGNORES flyer_id — returns generic ecom_items
+  (Shoppers/Brick/Hisense), NOT the flyer's grocery items. Dead end.
+- v4: flyer-item data lives on dam.flippenterprise.net (page config meta-api_server).
+  Try the dam host + several path shapes. _extract_items now REJECTS junk
+  responses that only carry ecom_items/coupons/ads (no real flyer items).
+  Dumps raw response of EVERY shape attempted for the first flyer.
+
+Flyer-item endpoint candidates (per flyer_id):
+  D) dam.flippenterprise.net/api/flipp/flyers/{id}/flyer_items
+  E) dam.flippenterprise.net/api/flipp/flyers/{id}
+  F) cdn-gateflipp.flippback.com/bf/flipp/flyers/{id}/flyer_items   (v2 guess, on cdn host)
+  G) backflipp.wishabi.com/flipp/flyers/{id}/flyer_items
 """
 from __future__ import annotations
 
@@ -27,7 +34,8 @@ from utils import http, match, store
 log = logging.getLogger("flipp")
 RETAILER_SLUG = "flipp"
 
-HOSTS = [
+# Host for flyer ENUMERATION (proven working in v2/v3)
+FLYERS_HOSTS = [
     "https://cdn-gateflipp.flippback.com/bf/flipp",
     "https://backflipp.wishabi.com/flipp",
 ]
@@ -50,8 +58,12 @@ except Exception:
     MIN_PLAUSIBLE_CENTS = 50
     MAX_PLAUSIBLE_CENTS = 10000
 
-_host = {"base": None}
-_item_shape = {"id": None}  # which item-endpoint shape works: 'A','B','C'
+_flyers_host = {"base": None}
+_item_shape = {"id": None}  # which item shape works: D/E/F/G
+
+# Keys that mean "this is a real flyer-item list" vs junk (ecom/coupons)
+REAL_ITEM_KEYS = ("flyer_items", "items")
+JUNK_ONLY_KEYS = {"ecom_items", "coupons", "coupons_v2", "ads"}
 
 
 def get_range(slug: str):
@@ -71,78 +83,73 @@ def map_merchant(name: str):
     return None
 
 
-def _get_json(path: str, force_host: str | None = None):
-    hosts = [force_host] if force_host else ([_host["base"]] if _host["base"] else HOSTS)
-    for base in hosts:
-        if not base:
-            continue
-        url = f"{base}{path}"
-        try:
-            r = http.get(url, headers={"Accept": "application/json"})
-            data = r.json()
-            if not force_host:
-                _host["base"] = base
-            return data, base
-        except Exception as e:
-            log.debug("host %s failed for %s: %s", base, path, e)
-            continue
-    return None, None
+def _http_json(url: str):
+    try:
+        r = http.get(url, headers={"Accept": "application/json"})
+        return r.json()
+    except Exception as e:
+        log.debug("GET %s failed: %s", url, e)
+        return None
 
 
 def fetch_flyers() -> list[dict]:
-    data, _ = _get_json(f"/flyers?locale=en-ca&postal_code={POSTAL}")
-    if data is None:
-        return []
-    if isinstance(data, list):
-        return data
-    for key in ("flyers", "items", "data"):
-        if isinstance(data.get(key), list):
-            return data[key]
+    for base in FLYERS_HOSTS:
+        data = _http_json(f"{base}/flyers?locale=en-ca&postal_code={POSTAL}")
+        if data is None:
+            continue
+        _flyers_host["base"] = base
+        if isinstance(data, list):
+            return data
+        for key in ("flyers", "items", "data"):
+            if isinstance(data.get(key), list):
+                return data[key]
     return []
 
 
-def _extract_items(data):
-    """Pull an item list out of whatever shape the response is."""
+def _extract_real_items(data):
+    """Return a flyer-item list ONLY if it's real flyer items, not ecom/coupons junk."""
     if data is None:
         return []
     if isinstance(data, list):
-        return data
+        # bare list of items — accept if entries look like flyer items
+        return data if data and isinstance(data[0], dict) else []
     if isinstance(data, dict):
-        # direct item arrays
-        for key in ("items", "flyer_items", "data", "results"):
+        for key in REAL_ITEM_KEYS:
             v = data.get(key)
             if isinstance(v, list) and v:
                 return v
-        # nested under 'flyer'
         fl = data.get("flyer")
         if isinstance(fl, dict):
-            for key in ("items", "flyer_items"):
+            for key in REAL_ITEM_KEYS:
                 v = fl.get(key)
                 if isinstance(v, list) and v:
                     return v
     return []
 
 
-def fetch_flyer_items(flyer_id, debug_dir: Path, dump: bool) -> list[dict]:
-    base = _host["base"] or HOSTS[0]
-    shapes = {
-        "A": f"/items/search?locale=en-ca&postal_code={POSTAL}&flyer_id={flyer_id}",
-        "B": f"/flyers/{flyer_id}?locale=en-ca",
-        "C": f"/flyers/{flyer_id}/flyer_items?locale=en-ca",
+def item_shapes(flyer_id):
+    return {
+        "D": f"https://dam.flippenterprise.net/api/flipp/flyers/{flyer_id}/flyer_items?locale=en-ca",
+        "E": f"https://dam.flippenterprise.net/api/flipp/flyers/{flyer_id}?locale=en-ca",
+        "F": f"https://cdn-gateflipp.flippback.com/bf/flipp/flyers/{flyer_id}/flyer_items?locale=en-ca",
+        "G": f"https://backflipp.wishabi.com/flipp/flyers/{flyer_id}/flyer_items?locale=en-ca",
     }
-    # If we already know which shape works, use only it
-    order = [_item_shape["id"]] if _item_shape["id"] else ["A", "B", "C"]
+
+
+def fetch_flyer_items(flyer_id, debug_dir: Path, dump: bool) -> list[dict]:
+    shapes = item_shapes(flyer_id)
+    order = [_item_shape["id"]] if _item_shape["id"] else list(shapes.keys())
     for sid in order:
         if not sid:
             continue
-        data, _ = _get_json(shapes[sid], force_host=base)
+        data = _http_json(shapes[sid])
         if dump:
             (debug_dir / f"flipp_itemfetch_raw_{sid}.json").write_text(
-                json.dumps(data, indent=2)[:8000] if data is not None else "null")
-        items = _extract_items(data)
+                json.dumps(data, indent=2)[:6000] if data is not None else "null")
+        items = _extract_real_items(data)
         if items:
             _item_shape["id"] = sid
-            log.info("Item-endpoint shape '%s' works (%d items)", sid, len(items))
+            log.info("Item shape '%s' works (%d items): %s", sid, len(items), shapes[sid])
             return items
     return []
 
@@ -184,7 +191,7 @@ def run(dry_run: bool = False) -> None:
     AUTO_MATCH_THRESHOLD = 78
 
     flyers = fetch_flyers()
-    log.info("Fetched %d flyers for %s via host %s", len(flyers), POSTAL, _host["base"])
+    log.info("Fetched %d flyers for %s via host %s", len(flyers), POSTAL, _flyers_host["base"])
 
     all_merchants = Counter()
     for f in flyers:
@@ -193,7 +200,7 @@ def run(dry_run: bool = False) -> None:
             all_merchants[m] += 1
 
     (debug_dir / "flipp_flyers.json").write_text(json.dumps({
-        "postal": POSTAL, "host": _host["base"], "flyer_count": len(flyers),
+        "postal": POSTAL, "host": _flyers_host["base"], "flyer_count": len(flyers),
         "all_merchants": dict(all_merchants.most_common()),
         "sample_flyer": flyers[0] if flyers else None,
     }, indent=2))
@@ -218,12 +225,13 @@ def run(dry_run: bool = False) -> None:
 
     for fid, store_id, merchant, flyer in wanted:
         items = fetch_flyer_items(fid, debug_dir, dump=(not dumped))
-        if not dumped:
-            dumped = True  # only dump raw for the first flyer attempt
+        dumped = True
         log.info("Flyer %s (%s -> %s): %d items", fid, merchant, store_id, len(items))
 
         flyer_items = []
         for it in items:
+            if not isinstance(it, dict):
+                continue
             nm = item_name(it)
             pr = item_price(it)
             if nm and pr:
@@ -259,7 +267,7 @@ def run(dry_run: bool = False) -> None:
     log.info("Done. Wrote %d across stores: %s (item shape=%s)",
              written, dict(per_store_items), _item_shape["id"])
     (debug_dir / "flipp_summary.json").write_text(json.dumps({
-        "host": _host["base"], "item_shape": _item_shape["id"],
+        "flyers_host": _flyers_host["base"], "item_shape": _item_shape["id"],
         "flyer_count": len(flyers), "wanted_flyers": len(wanted),
         "wrote": written, "per_store": dict(per_store_items),
         "all_merchants": dict(all_merchants.most_common()),
