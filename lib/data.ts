@@ -5,8 +5,8 @@ import type { CheapestRow } from './types';
 type Retailer = { slug: string; name: string; country: string; flyer_url: string; };
 type Store = { id: string; retailer_slug: string; external_id: string; name: string; address: string; city: string; province: string; postal_code: string; };
 type Product = { rank: number; slug: string; name: string; category: string; unit?: string; unit_size?: number; unit_label?: string; };
-type PriceRow = { store_id: string; product_slug: string; price_cents: number; was_price_cents: number | null; on_sale: boolean; source: string; };
-type PricesFile = { generated_at: string; store_count: number; product_count: number; price_count: number; prices: PriceRow[]; };
+type PriceRow = { store_id: string; product_slug: string; price_cents: number; was_price_cents: number | null; on_sale: boolean; source: string; valid_until?: string | null; };
+type PricesFile = { generated_at: string; flyer_week_expiry?: string; store_count: number; product_count: number; price_count: number; prices: PriceRow[]; };
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
@@ -33,12 +33,13 @@ export function getKnownFsas(): string[] {
 }
 
 export function getCheapestForPostal(postalPrefix: string): {
-  postal_prefix: string; stores_count: number; items: CheapestRow[]; generated_at: string;
+  postal_prefix: string; stores_count: number; items: CheapestRow[]; generated_at: string; flyer_week_expiry: string | null;
 } {
   const { retailers, stores, products, prices } = load();
+  const expiry = prices.flyer_week_expiry || null;
   const matchingStores = stores.filter((s) => s.postal_code.slice(0, 3).toUpperCase() === postalPrefix.toUpperCase());
   if (matchingStores.length === 0) {
-    return { postal_prefix: postalPrefix, stores_count: 0, items: [], generated_at: prices.generated_at };
+    return { postal_prefix: postalPrefix, stores_count: 0, items: [], generated_at: prices.generated_at, flyer_week_expiry: expiry };
   }
   const storeIds = new Set(matchingStores.map((s) => s.id));
   const storeById = new Map(matchingStores.map((s) => [s.id, s]));
@@ -85,5 +86,5 @@ export function getCheapestForPostal(postalPrefix: string): {
     });
   }
   items.sort((a, b) => (a.product_rank || 999) - (b.product_rank || 999));
-  return { postal_prefix: postalPrefix.toUpperCase(), stores_count: matchingStores.length, items, generated_at: prices.generated_at };
+  return { postal_prefix: postalPrefix.toUpperCase(), stores_count: matchingStores.length, items, generated_at: prices.generated_at, flyer_week_expiry: expiry };
 }
