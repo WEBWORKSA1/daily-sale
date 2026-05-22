@@ -3,12 +3,13 @@
   "item_shape": "D",
   "flyer_count": 116,
   "wanted_flyers": 10,
-  "wrote": 34,
+  "wrote": 126,
   "per_store": {
-    "sobeys-glendale": 19,
-    "freshco-scott": 9,
-    "walmart-stcatharines": 4,
-    "gianttiger-stcatharines": 2
+    "sobeys-glendale": 38,
+    "freshco-scott": 21,
+    "walmart-stcatharines": 35,
+    "gianttiger-stcatharines": 6,
+    "foodbasics-welland": 26
   },
   "flyer_diagnostics": [
     {
@@ -17,28 +18,7 @@
       "flyer_id": 7941592,
       "raw_items": 400,
       "usable_items": 362,
-      "sample_names": [
-        "Mandevilla",
-        "COMPLIMENTS Potato Chips or Extraaa! Flavour Chips",
-        "LA COCINA Tortilla Chips",
-        "CRACKER BARREL Monterey Jack Spreads",
-        "ROYAL NUTS Cashews or Almonds",
-        "COMPLIMENTS ORGANIC Cremini or White Sliced Mushrooms",
-        "Marinated Fresh Chicken Thighs",
-        "JANES Ultimates Breaded or Battered Haddock or Cod",
-        "JOHN FRIEDA Hair Care or BATISTE Dry Shampoo",
-        "Fresh Beef Kabobs with Vegetables",
-        "MICHELINA'S Frozen Entrees",
-        "QUAKER Muffin or Cookie Mix 750-900 g or Oat Flour 700 g",
-        "Soft Drinks",
-        "Blackberries",
-        "Annual Foliage or Flowering Hanging Baskets",
-        "COMPLIMENTS Granola",
-        "Passion Fruit",
-        "COMPLIMENTS Angel Food Cake or Cups",
-        "Al Pastor Style Loaded Fries",
-        "CHRISTIE Crispers or Bits & Bites"
-      ]
+      "matched": 38
     },
     {
       "merchant": "FreshCo",
@@ -46,28 +26,7 @@
       "flyer_id": 7932482,
       "raw_items": 213,
       "usable_items": 209,
-      "sample_names": [
-        "Apna Taste Rasmalai 850 g Select Varieties",
-        "Downy Fabric softener 1.66-2.63 L",
-        "Tide Liquid Detergent 2.15-248 L Gain 425 L or Tide Pods or Gain Flings 25-42 Pk",
-        "Nanak Desi Ghee 800 g",
-        "Nanak veggie Burger Patties 640 g",
-        "VH sauce 341-380 mL Selected varieties",
-        "Saleem Caravan sunflower Oil 3 L",
-        "International Delight Coffee Whitener 946 mL",
-        "Furlani Garlic Toast 638 g or Parmesan Bread Sticks 660 g",
-        "Ace Bakery Bread 595 g or Rolls 400-525 g",
-        "Sainsbury's Biscuits 200 g",
-        "R\u00fcgen Fisch Herring Fillets in Tomato Sauce 200 g",
-        "Oasis, Del Monte or Arizona Iced Tea Drink Boxes 8x200 mL",
-        "Becel Margarine 800 g",
-        "Puck Dairy Creamy Spread 500 g",
-        "Aroy-D Canned Curry 400 g",
-        "Pepperoni Pizza Style 175 g",
-        "Robinsons Beverage 1 L",
-        "Nabob Ground coffee 340 g",
-        "Ox Head Spring Roll Pastry 250-270 g"
-      ]
+      "matched": 20
     },
     {
       "merchant": "FreshCo",
@@ -75,28 +34,7 @@
       "flyer_id": 7911230,
       "raw_items": 22,
       "usable_items": 22,
-      "sample_names": [
-        "Kim Phat Chow Mein 3 Minute Noodles 454 g",
-        "Kim Phat Sambal Oelek Paste 250 g or Fish Sauce 298 mL",
-        "Kim Phat Pad Thai Sauce 298 g",
-        "Eight Treasures Thai Jasmine Rice",
-        "Eight Treasures Sweetened Condensed Milk 300 mL",
-        "Eight Treasures Cooked Shrimp Frozen 340 g",
-        "Eight Treasures Basa Steaks 500 g",
-        "Kim Phat Vermicelli or Pad Thai Noodles 400 g",
-        "Eight Treasures Tilapia Frozen",
-        "Kim Phat Water Chestnuts Whole or Slices 227 g",
-        "Kim Phat Udon Noodles 800 g",
-        "Eight Treasures Pompano Whole, Uncooked 800 g",
-        "Kim Phat Rice Paper 22cm 400g or Light or Dark Soy Sauce 500mL",
-        "Kim Phat Coconut Milk 6% or 18% 400 mL",
-        "Kim Phat Sushi Vinegar 298 mL or Sriracha Chili Sauce 432 mL",
-        "Eight Treasures Sesame Oil 185mL",
-        "Kim Phat Roasted Sesame Oil 163 mL or Salad Dressing 298 mL",
-        "Kim Phat Spring Rolls 204g",
-        "Eight Treasures Thai Jasmine Rice",
-        "Eight Treasures Rice Vermicelli 400 g or Rice Stick Noodles 454 g"
-      ]
+      "matched": 1
     },
     {
       "merchant": "Walmart",
@@ -104,28 +42,7 @@
       "flyer_id": 7932692,
       "raw_items": 501,
       "usable_items": 458,
-      "sample_names": [
-        "Garlic",
-        "Libert\u00e9 Greek yogurt",
-        "Finish Quantum dishwasher tabs",
-        "Miss Vickie's chips",
-        "Nature Valley granola bars",
-        "Huggies 6x - 15x wipes",
-        "Similac Pro-Advance ready to feed infant formola bottles",
-        "Mulch",
-        "Finish Quantum dishwasher tabs",
-        "Simply Orange juice",
-        "Dove shampoo or conditioner",
-        "Premier Protein shakes",
-        "Advil Liqui-Gels",
-        "Puck labneh",
-        "The Little Potato Co. red, yellow or trio potatoes",
-        "Great Value original wieners 24-pack",
-        "Premier Protein shakes",
-        "Blackberries",
-        "EXPERT GARDEN Mulch",
-        "Black Diamond Cheestrings, lactose free, probiotic or cheese sticks"
-      ]
+      "matched": 25
     },
     {
       "merchant": "Giant Tiger",
@@ -133,28 +50,7 @@
       "flyer_id": 7925015,
       "raw_items": 162,
       "usable_items": 148,
-      "sample_names": [
-        "kids storage bench",
-        "Aqua Star frozen wild Pacific pink salmon",
-        "Crinkle knit wide leg pants",
-        "Pam cooking spray",
-        "Girls dress",
-        "Hooded animal throw",
-        "dresses only",
-        "Country Harvest bread",
-        "4\" annuals or vegetable plants",
-        "hat",
-        "Lace top or crochet cardigan",
-        "Ruffle lace top",
-        "Fruit2O flavoured sparkling water or Powerade sports drink",
-        "Linen like shorts",
-        "Active tank top with side bungee",
-        "Straight slim cargo pants",
-        "Crochet crossbody bag",
-        "1-drawer beauty organizer",
-        "Curtain rods",
-        "Pique polo"
-      ]
+      "matched": 6
     },
     {
       "merchant": "Walmart",
@@ -162,28 +58,7 @@
       "flyer_id": 7889198,
       "raw_items": 273,
       "usable_items": 225,
-      "sample_names": [
-        "Time and Tru beach tote",
-        "George V-neck",
-        "George crinkle challis maxi dress",
-        "Athletic Works 7\" cycle short",
-        "HydroForce 9' Aqua Journey stand-up paddleboard set",
-        "George tank top",
-        "George men's 5\" in-seam swim shorts",
-        "Unicorn squirter",
-        "Time and Tru comfort flip flops",
-        "Toddlers' licensed clogs or slides",
-        "George boys' swim shorts",
-        "Qaba ride-on electric go-kart",
-        "Reebok boys' swim shorts",
-        "XShot SpongeBob 2-pack water blasters",
-        "George dolphin shorts",
-        "George Scubaknit dress",
-        "George one-piece swimsuit",
-        "No Boundaries jelly flats",
-        "Ozark Trail men's sandals",
-        "Kid's licensed Paddle Pals"
-      ]
+      "matched": 1
     },
     {
       "merchant": "Walmart",
@@ -191,28 +66,7 @@
       "flyer_id": 7880852,
       "raw_items": 227,
       "usable_items": 178,
-      "sample_names": [
-        "Mobil Full Synthetic motor oil",
-        "Starfrit 2-slice toaster",
-        "Starfrit 12-cup coffee maker",
-        "Mainstays bath rug",
-        "Mainstays glass-door TV stand",
-        "Mainstays 4' x 6' washable rug",
-        "Schultz lawn fertilizer",
-        "T-fal stainless steel 10-piece cookware set",
-        "Cuisinart Fusion Pro stainless steel gadgets",
-        "Cuisinart Fusion Pro stainless steel gadgets",
-        "Cuisinart Air Fryer Toaster Oven",
-        "Cuisinart Brew Central 14-cup Coffee Maker",
-        "Summer Tabletop Accessories",
-        "Mainstays towels, washcloths and bath sheets",
-        "102 L Heavy Duty Storage Tote",
-        "Thyme & Table 20-piece flatware set",
-        "Better Homes & Gardens 8\" twisted planter",
-        "Suncast Vista 7' x 4' weather- resistant storage shed",
-        "Tremclad\u00ae Rust paint",
-        "Expert Gardener grass seed"
-      ]
+      "matched": 0
     },
     {
       "merchant": "Walmart",
@@ -220,28 +74,7 @@
       "flyer_id": 7912655,
       "raw_items": 201,
       "usable_items": 145,
-      "sample_names": [
-        "Purina One Dry Dog Food, 14KG",
-        "BLUE Life Protection Formula Salmon & Brown Rice Recipe, 2.2KG",
-        "INABA Churu Cat Treats, Lickable Pur\u00e9e - 4tubes, 5.6g",
-        "Pure Balance Wet Dog Food 354gm",
-        "IAMS Dry Dog Food, 3.18kg",
-        "One Paw Harness Set $19.98",
-        "PawHut 23\" Bird Cage Flight Parrot House Cockatiels Playpen",
-        "Fried Dried Beef Liver Bites Value Pack",
-        "BLUE Life Protection Formula Adult Lamb & Brown Rice Dry Dog Food, 2.2kg",
-        "Tidy Cats lightweight cat Litter - 2.72KG",
-        "BLUE TASTEFULS Chicken & Gravy Adult Cat, 2.2kg",
-        "Catit Recipes single can Wet Cat Food 85g",
-        "TIDEA X5 Cordless Stick Vacuum Cleaner, 300W Brushless Motor",
-        "Tetra 50W Submersible Aquarium Heater",
-        "Soft Squeaky 16.5\" Carrot Toy",
-        "Ol Roy 18KG Value Size Dry Dog Food - feature item# 816844",
-        "Reveal Wet Cat Food 70g can",
-        "One Paw, Fire Hydrant Dog Toy with Rope and Squeaker",
-        "Little Green Pro/BIS LG OXY S&S PDC",
-        "Pedigree XL Vitality Dry Dog Food, 20KG"
-      ]
+      "matched": 4
     },
     {
       "merchant": "Walmart",
@@ -249,28 +82,7 @@
       "flyer_id": 7917791,
       "raw_items": 55,
       "usable_items": 53,
-      "sample_names": [
-        "Barakah Meadows lean ground beef",
-        "Your Fresh Market\u2122 Atlantic salmon portion",
-        "Al Dayaa extra virgin olive oil",
-        "Zabiha Halal breakfast chicken strips",
-        "Zein semolina #2 medium",
-        "Everest masala",
-        "Your Fresh Market\u2122 Arabic-style pita bread",
-        "Long eggplant",
-        "Garlic",
-        "Everest masala",
-        "Verka paneer",
-        "Sher Durum Atta",
-        "Great Value cooking oil",
-        "Sitara lentils",
-        "Mina chicken burgers 6-pack",
-        "Golden Valley Medjoul dates",
-        "25cm (10\") Non-stick multi-pan",
-        "Brar's Rasmalai",
-        "Brooke Bond Taj Mahal black tea",
-        "M-C Dairy 3.25% M.F. Kefir"
-      ]
+      "matched": 5
     },
     {
       "merchant": "Food Basics",
@@ -278,28 +90,7 @@
       "flyer_id": 7932345,
       "raw_items": 391,
       "usable_items": 387,
-      "sample_names": [
-        "SELECTION GARDEN SOIL",
-        "ANCHOR'S BAY BASA FILLET OR SEAHORSE BASA STEAK OR SEA SOUL TORPEDO SHRIMP",
-        "DEMPSTER'S BAGELS, 450-510 G",
-        "TIMOTHY'S COFFEE CAPSULES",
-        "SELECTION PASTA SAUCE",
-        "IRRESISTIBLE FLATBREAD PIZZA",
-        "ALLEN'S WHITE OR CLEANING VINEGAR",
-        "IRRESISTIBLE MUFFINS",
-        "STONEMILL BREAD",
-        "SCOTTIES FACIAL TISSUE",
-        "LIFE SMART NATURALIA ALMOND BEVERAGE",
-        "GREEN BEANS",
-        "OLIVIERI SKILLET GNOCCHI",
-        "DEMPSTER'S BAGELS 450-510 G RUDOLPH'S BREAD 500 G PREMI\u00c8RE MOISSON BREAD 475 G",
-        "RRESISTIBLE MUFFINS",
-        "FINISH POWERBALL DISHWASHER TABS",
-        "NESTL\u00c9 COFFEE MATE COFFEE ENHANCER",
-        "BARILLA PASTA",
-        "SELECTION DISHWASHING DETERGENT",
-        "SELECTION DISHWASHING DETERGENT"
-      ]
+      "matched": 26
     }
   ],
   "all_merchants": {
