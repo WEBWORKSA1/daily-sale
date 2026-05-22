@@ -1,4 +1,11 @@
-"""Shared HTTP client. Polite by default: 1 req / 2s per host, exponential retry."""
+"""Shared HTTP client. Polite by default: 1 req / 2s per host, exponential retry.
+
+Proxy support: set the SCRAPER_PROXY_URL env var (e.g. a PacketStream
+http://user:pass@proxy.packetstream.io:31112 string) and all requests route
+through it. If unset, requests go direct (No Frills doesn't need a proxy).
+Pass use_proxy=True on the call to force proxy use for hard retailers.
+"""
+import os
 import time
 from collections import defaultdict
 from typing import Optional
@@ -32,6 +39,19 @@ _last_hit: dict[str, float] = defaultdict(lambda: 0.0)
 MIN_DELAY = 2.0
 
 
+def get_proxy_url() -> Optional[str]:
+    """Read proxy from env. Returns None if not configured."""
+    url = os.environ.get("SCRAPER_PROXY_URL", "").strip()
+    return url or None
+
+
+def _proxies(use_proxy: bool) -> Optional[str]:
+    """Resolve which proxy (if any) to use for a request."""
+    if not use_proxy:
+        return None
+    return get_proxy_url()
+
+
 def _wait(host: str) -> None:
     elapsed = time.time() - _last_hit[host]
     if elapsed < MIN_DELAY:
@@ -40,32 +60,39 @@ def _wait(host: str) -> None:
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=15))
-def get(url: str, *, headers: Optional[dict] = None, timeout: float = 30) -> httpx.Response:
+def get(url: str, *, headers: Optional[dict] = None, timeout: float = 30,
+        use_proxy: bool = False) -> httpx.Response:
     host = httpx.URL(url).host
     _wait(host)
     h = {"User-Agent": USER_AGENT, "Accept-Language": "en-CA,en;q=0.9"}
     if headers:
         h.update(headers)
-    with httpx.Client(http2=True, follow_redirects=True, timeout=timeout) as c:
+    proxy = _proxies(use_proxy)
+    client_kwargs = dict(http2=True, follow_redirects=True, timeout=timeout)
+    if proxy:
+        client_kwargs["proxy"] = proxy
+    with httpx.Client(**client_kwargs) as c:
         r = c.get(url, headers=h)
         r.raise_for_status()
         return r
 
 
-def make_browser_session(timeout: float = 30) -> httpx.Client:
+def make_browser_session(timeout: float = 30, use_proxy: bool = False) -> httpx.Client:
     """
-    Returns a persistent httpx.Client that:
-    - sends a full Chrome header set
-    - keeps cookies across requests (needed for sites that gate on session cookies)
-
-    Caller is responsible for closing it (use as context manager).
+    Persistent httpx.Client with full Chrome headers + cookie jar.
+    If use_proxy=True and SCRAPER_PROXY_URL is set, routes through the proxy.
+    Caller closes it (use as context manager).
     """
-    return httpx.Client(
+    client_kwargs = dict(
         http2=True,
         follow_redirects=True,
         timeout=timeout,
         headers=BROWSER_HEADERS.copy(),
     )
+    proxy = _proxies(use_proxy)
+    if proxy:
+        client_kwargs["proxy"] = proxy
+    return httpx.Client(**client_kwargs)
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=15))
@@ -83,13 +110,18 @@ def session_get(client: httpx.Client, url: str, *, referer: Optional[str] = None
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=15))
-def post_json(url: str, payload: dict, *, headers: Optional[dict] = None, timeout: float = 30) -> httpx.Response:
+def post_json(url: str, payload: dict, *, headers: Optional[dict] = None, timeout: float = 30,
+              use_proxy: bool = False) -> httpx.Response:
     host = httpx.URL(url).host
     _wait(host)
     h = {"User-Agent": USER_AGENT, "Accept": "application/json", "Content-Type": "application/json"}
     if headers:
         h.update(headers)
-    with httpx.Client(http2=True, follow_redirects=True, timeout=timeout) as c:
+    proxy = _proxies(use_proxy)
+    client_kwargs = dict(http2=True, follow_redirects=True, timeout=timeout)
+    if proxy:
+        client_kwargs["proxy"] = proxy
+    with httpx.Client(**client_kwargs) as c:
         r = c.post(url, json=payload, headers=h)
         r.raise_for_status()
         return r
