@@ -16,3 +16,6 @@ scrapers/data/*
 !scrapers/data/flipp_flyers.json
 !scrapers/data/flipp_summary.json
 !scrapers/data/flipp_flyer_items_sample.json
+!scrapers/data/flipp_itemfetch_raw_A.json
+!scrapers/data/flipp_itemfetch_raw_B.json
+!scrapers/data/flipp_itemfetch_raw_C.json
