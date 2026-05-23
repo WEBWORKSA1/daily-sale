@@ -14,6 +14,9 @@ PROGRESS:
   require its core keyword(s) as whole words + reject lookalikes; else fall back
   to fuzzy token_set_ratio >= 78. Anchors tested vs real Food Basics flyer.
 
+- v7: loosen sale floors (flyer deals dip below shelf floors), bundle rejection
+  + size-mismatch guard (via utils/anchors.py), plural-aware anchors.
+
 Flyer-item endpoint (locked): shape D.
 """
 from __future__ import annotations
@@ -27,7 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils import http, match, store
-from utils.anchors import ANCHORS, anchor_match
+from utils.anchors import ANCHORS, anchor_match, size_mismatch
 
 log = logging.getLogger("flipp")
 RETAILER_SLUG = "flipp"
@@ -59,6 +62,11 @@ _flyers_host = {"base": None}
 
 REAL_ITEM_KEYS = ("flyer_items", "items")
 AUTO_MATCH_THRESHOLD = 78
+# Flipp items are flyer SALE prices — they legitimately dip below the shelf-price
+# floors calibrated for No Frills. Use a low sale floor so real deals (e.g.
+# grapes $3.99 vs a $4.00 shelf floor) aren't rejected. Keep CEILINGS — those
+# catch wrong-product matches (e.g. a $40 premium item matching a staple).
+SALE_FLOOR_CENTS = 50
 
 
 def get_range(slug: str):
@@ -159,6 +167,10 @@ def match_product(name: str, product: dict):
     """Hybrid: anchor match if slug has a spec, else fuzzy token_set_ratio >= 78.
     Returns a comparable score (anchors return 100) or None."""
     slug = product["slug"]
+    # Size-mismatch guard: if canonical unit and the item BOTH state a size and
+    # they differ >=2x, it's a different pack — reject (e.g. 4L milk vs 2L).
+    if size_mismatch(product.get("unit", ""), name):
+        return None
     if slug in ANCHORS:
         return 100 if anchor_match(name, slug) else None
     canon = [{"id": product["rank"], "name": product["name"], "unit": product.get("unit", "")}]
@@ -214,9 +226,10 @@ def run(dry_run: bool = False) -> None:
         store_written = 0
         for product in products:
             floor, ceiling = get_range(product["slug"])
+            sale_floor = min(floor, SALE_FLOOR_CENTS)  # loosen floor for flyer deals
             best = None  # (name, price, valid_until, score)
             for nm, pr, vto in usable:
-                if not (floor <= pr <= ceiling):
+                if not (sale_floor <= pr <= ceiling):
                     continue
                 sc = match_product(nm, product)
                 if sc is None:
