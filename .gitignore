@@ -16,3 +16,4 @@ scrapers/data/*
 !scrapers/data/flipp_flyers.json
 !scrapers/data/flipp_summary.json
 !scrapers/data/flipp_foodbasics_items.json
+!scrapers/data/flipp_field_audit.json
