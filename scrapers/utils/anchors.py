@@ -44,7 +44,7 @@ ANCHORS = {
     "oranges-navel-3lb": {"must": [["navel","oranges"]], "reject": ["juice","chocolate","pekoe"]},
     "strawberries-1lb": {"must": [["strawberries"]], "reject": ["jam","frozen","ice"]},
     "blueberries-pint": {"must": [["blueberries"]], "reject": ["frozen","muffin","jam","raspberries","blackberries"]},
-    "grapes-red-2lb": {"must": [["red","seedless","grapes"]], "reject": ["juice","tomato","tomatoes","green","cucumber","cucumbers"]},
+    "grapes-red-2lb": {"must": [["red","seedless","grapes"],["seedless","grapes"]], "reject": ["juice","tomato","cucumber"]},
     "tomatoes-on-vine-lb": {"must": [["tomatoes"]], "reject": ["soup","sauce","canned","paste","juice","grape","cherry"]},
     "potatoes-russet-10lb": {"must": [["russet"]], "reject": ["sweet","chip"]},
     "potatoes-yellow-5lb": {"must": [["yellow","potatoes"]], "reject": ["sweet","chip","russet","mini","gourmet"]},
@@ -118,17 +118,80 @@ ANCHORS = {
 }
 
 _word_cache = {}
+def _variants(word):
+    """Singular/plural variants so 'cucumber' matches 'cucumbers', 'grapes'
+    matches 'grape'. Multi-token words (e.g. 'hot dog') are left as-is."""
+    if " " in word:
+        return {word}
+    v = {word, word + "s", word + "es"}
+    if word.endswith("s"):
+        v.add(word[:-1])
+    if word.endswith("y"):
+        v.add(word[:-1] + "ies")
+    return v
+
 def has_word(low, word):
-    # word-boundary match; word may itself be multi-token (e.g. "hot dog")
+    """Word-boundary, plural-aware match. Boundaries stop substring false
+    positives ('salt' != 'salted', 'oat' != 'goat')."""
     pat = _word_cache.get(word)
     if pat is None:
-        pat = re.compile(r'\b' + re.escape(word) + r'\b')
+        alts = "|".join(re.escape(v) for v in sorted(_variants(word), key=len, reverse=True))
+        pat = re.compile(r"\b(?:" + alts + r")\b")
         _word_cache[word] = pat
     return bool(pat.search(low))
+
+# --- Bundle detection: flyer entry advertising 2+ products at one price ---
+_SIZE_TOK = re.compile(r"\d+(?:\.\d+)?\s*(?:g|kg|ml|l|lb|oz)\b")
+_COUNT_TOK = re.compile(r"\d+\s*'?s\b")
+_PRODUCT_NOUNS = [
+    "grapes","tomatoes","tomato","cucumber","cucumbers","bagels","bread","buns","honey","tea",
+    "samosas","sauce","tarts","donuts","nectar","juice","cereal","chips","drinks","milk","beans",
+    "tacos","salmon","yogurt","novelties","ice cream","crackers","cookies","coffee","pizza","wings",
+    "mushrooms","peppers","onions","potatoes","apples","oranges","bananas","strawberries","lettuce",
+    "spinach","carrots","celery","broccoli","avocados","lemons","limes","butter","cheese","eggs",
+]
+def is_bundle(name):
+    low = name.lower()
+    if len(_SIZE_TOK.findall(low)) + len(_COUNT_TOK.findall(low)) >= 2:
+        return True
+    found = set()
+    for noun in _PRODUCT_NOUNS:
+        if re.search(r"\b" + re.escape(noun) + r"\b", low):
+            found.add(noun.rstrip("s"))
+    if len(found) >= 2:
+        return True
+    if len(_SIZE_TOK.findall(low)) >= 1 and " or " in low and low.count(",") >= 1:
+        return True
+    return False
+
+# --- Size-mismatch guard: reject when canonical unit & item size clearly differ ---
+def _to_base(text):
+    m = re.search(r"(\d+(?:\.\d+)?)\s*(kg|g|lb|oz|ml|l)\b", text.lower())
+    if not m:
+        return None
+    val, unit = float(m.group(1)), m.group(2)
+    if unit == "kg": return ("w", val * 1000)
+    if unit == "g":  return ("w", val)
+    if unit == "lb": return ("w", val * 454)
+    if unit == "oz": return ("w", val * 28.35)
+    if unit == "l":  return ("v", val * 1000)
+    if unit == "ml": return ("v", val)
+    return None
+
+def size_mismatch(canon_unit, item_name):
+    """True only when BOTH sizes known, same dimension, and differ >= 2x."""
+    if not canon_unit:
+        return False
+    c, i = _to_base(canon_unit), _to_base(item_name)
+    if not c or not i or c[0] != i[0] or c[1] <= 0 or i[1] <= 0:
+        return False
+    return max(c[1], i[1]) / min(c[1], i[1]) >= 2.0
 
 def anchor_match(name, slug):
     spec = ANCHORS.get(slug)
     if not spec:
+        return None
+    if is_bundle(name):
         return None
     low = name.lower()
     for r in spec.get("reject", []):
