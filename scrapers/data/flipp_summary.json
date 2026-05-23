@@ -3,13 +3,13 @@
   "item_shape": "D",
   "flyer_count": 116,
   "wanted_flyers": 10,
-  "wrote": 126,
+  "wrote": 147,
   "per_store": {
-    "sobeys-glendale": 38,
-    "freshco-scott": 21,
-    "walmart-stcatharines": 35,
-    "gianttiger-stcatharines": 6,
-    "foodbasics-welland": 26
+    "sobeys-glendale": 41,
+    "freshco-scott": 18,
+    "walmart-stcatharines": 46,
+    "gianttiger-stcatharines": 8,
+    "foodbasics-welland": 34
   },
   "flyer_diagnostics": [
     {
@@ -18,7 +18,7 @@
       "flyer_id": 7941592,
       "raw_items": 400,
       "usable_items": 362,
-      "matched": 38
+      "matched": 41
     },
     {
       "merchant": "FreshCo",
@@ -26,7 +26,7 @@
       "flyer_id": 7932482,
       "raw_items": 213,
       "usable_items": 209,
-      "matched": 20
+      "matched": 17
     },
     {
       "merchant": "FreshCo",
@@ -42,7 +42,7 @@
       "flyer_id": 7932692,
       "raw_items": 501,
       "usable_items": 458,
-      "matched": 25
+      "matched": 33
     },
     {
       "merchant": "Giant Tiger",
@@ -50,7 +50,7 @@
       "flyer_id": 7925015,
       "raw_items": 162,
       "usable_items": 148,
-      "matched": 6
+      "matched": 8
     },
     {
       "merchant": "Walmart",
@@ -74,7 +74,7 @@
       "flyer_id": 7912655,
       "raw_items": 201,
       "usable_items": 145,
-      "matched": 4
+      "matched": 5
     },
     {
       "merchant": "Walmart",
@@ -82,7 +82,7 @@
       "flyer_id": 7917791,
       "raw_items": 55,
       "usable_items": 53,
-      "matched": 5
+      "matched": 7
     },
     {
       "merchant": "Food Basics",
@@ -90,7 +90,7 @@
       "flyer_id": 7932345,
       "raw_items": 391,
       "usable_items": 387,
-      "matched": 26
+      "matched": 34
     }
   ],
   "all_merchants": {
