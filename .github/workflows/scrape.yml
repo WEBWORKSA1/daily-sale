@@ -34,6 +34,10 @@ jobs:
         run: python scrapers/retailers/flipp.py --verbose
         continue-on-error: true
 
+      - name: Field audit (one-time diagnostic)
+        run: python scrapers/diagnostics/field_audit.py
+        continue-on-error: true      
+        
       - name: Commit updated prices
         run: |
           git config user.name "daily-sale-bot"
