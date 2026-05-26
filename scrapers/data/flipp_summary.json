@@ -1,14 +1,14 @@
 {
   "flyers_host": "https://cdn-gateflipp.flippback.com/bf/flipp",
   "item_shape": "D",
-  "flyer_count": 110,
-  "wanted_flyers": 10,
-  "wrote": 147,
+  "flyer_count": 113,
+  "wanted_flyers": 11,
+  "wrote": 161,
   "per_store": {
     "sobeys-glendale": 41,
     "freshco-scott": 18,
     "walmart-stcatharines": 46,
-    "gianttiger-stcatharines": 8,
+    "gianttiger-stcatharines": 22,
     "foodbasics-welland": 34
   },
   "flyer_diagnostics": [
@@ -31,14 +31,6 @@
     {
       "merchant": "Walmart",
       "store_id": "walmart-stcatharines",
-      "flyer_id": 7932692,
-      "raw_items": 501,
-      "usable_items": 458,
-      "matched": 33
-    },
-    {
-      "merchant": "Walmart",
-      "store_id": "walmart-stcatharines",
       "flyer_id": 7880852,
       "raw_items": 227,
       "usable_items": 178,
@@ -47,10 +39,10 @@
     {
       "merchant": "Walmart",
       "store_id": "walmart-stcatharines",
-      "flyer_id": 7917791,
-      "raw_items": 55,
-      "usable_items": 53,
-      "matched": 7
+      "flyer_id": 7932692,
+      "raw_items": 501,
+      "usable_items": 458,
+      "matched": 33
     },
     {
       "merchant": "Giant Tiger",
@@ -59,14 +51,6 @@
       "raw_items": 162,
       "usable_items": 148,
       "matched": 8
-    },
-    {
-      "merchant": "Walmart",
-      "store_id": "walmart-stcatharines",
-      "flyer_id": 7889198,
-      "raw_items": 273,
-      "usable_items": 225,
-      "matched": 1
     },
     {
       "merchant": "Walmart",
@@ -83,6 +67,30 @@
       "raw_items": 213,
       "usable_items": 209,
       "matched": 17
+    },
+    {
+      "merchant": "Walmart",
+      "store_id": "walmart-stcatharines",
+      "flyer_id": 7917791,
+      "raw_items": 55,
+      "usable_items": 53,
+      "matched": 7
+    },
+    {
+      "merchant": "Walmart",
+      "store_id": "walmart-stcatharines",
+      "flyer_id": 7889198,
+      "raw_items": 273,
+      "usable_items": 225,
+      "matched": 1
+    },
+    {
+      "merchant": "Giant Tiger",
+      "store_id": "gianttiger-stcatharines",
+      "flyer_id": 7948911,
+      "raw_items": 131,
+      "usable_items": 115,
+      "matched": 14
     },
     {
       "merchant": "Food Basics",
@@ -105,30 +113,32 @@
     "Ren's Pets": 3,
     "Pharmasave": 2,
     "Commisso's Fresh Foods": 2,
+    "Sleep Country Canada": 2,
+    "Costco": 2,
+    "Paulmac's Pets": 2,
     "Shoppers Drug Mart": 2,
     "Princess Auto": 2,
     "Canadian Tire": 2,
     "PetSmart": 2,
     "FreshCo": 2,
-    "The Brick": 2,
-    "Paulmac's Pets": 2,
     "Real Canadian Superstore": 2,
+    "Giant Tiger": 2,
     "Tepperman's": 2,
     "Ray James Appliances": 2,
     "Cabela's & Bass Pro": 2,
+    "The Brick": 2,
     "Best Buy": 1,
-    "Wayfair": 1,
     "Dollarama": 1,
     "Party City": 1,
-    "Sleep Country Canada": 1,
-    "Zehrs": 1,
+    "Nature's Source and Nature's Signature": 1,
+    "Newegg": 1,
     "RONA & RONA +": 1,
     "Subway": 1,
+    "Farm Boy": 1,
     "Piries Appliances": 1,
-    "GP Bikes": 1,
-    "Wholesale Club and Club Entrep\u00f4t": 1,
-    "Surplus Furniture & Mattress Warehouse": 1,
     "Bath Depot": 1,
+    "GP Bikes": 1,
+    "Surplus Furniture & Mattress Warehouse": 1,
     "Sobeys": 1,
     "Home Depot": 1,
     "Holt Renfrew": 1,
@@ -137,11 +147,9 @@
     "PartSource": 1,
     "Foodland": 1,
     "On the Run": 1,
-    "HockeyStickMan": 1,
     "EB Games Canada": 1,
     "Flipp Hottest Deals": 1,
     "Rexall": 1,
-    "Giant Tiger": 1,
     "No Frills": 1,
     "IKEA": 1,
     "Product of the Year Canada": 1,
@@ -150,8 +158,8 @@
     "Canadian Grand Prix New Product Awards": 1,
     "M&M Food Market": 1,
     "Wholehealth Pharmacy": 1,
+    "Zehrs": 1,
     "H&M": 1,
-    "Farm Boy": 1,
     "Your Independent Grocer": 1,
     "Big Red Markets": 1,
     "President's Choice": 1,
@@ -162,8 +170,8 @@
     "The Shopping Channel": 1,
     "Hart Stores": 1,
     "Food Basics": 1,
-    "Costco": 1,
     "Well.ca": 1,
+    "Wholesale Club and Club Entrep\u00f4t": 1,
     "LCBO": 1
   }
 }
