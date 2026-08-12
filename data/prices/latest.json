@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-06",
-  "flyer_week_expiry": "2026-08-12",
+  "generated_at": "2026-08-12",
+  "flyer_week_expiry": "2026-08-19",
   "store_count": 6,
-  "product_count": 79,
-  "price_count": 175,
+  "product_count": 82,
+  "price_count": 232,
   "prices": [
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-2pct-4l",
-      "price_cents": 578,
+      "price_cents": 625,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "milk-1pct-4l",
-      "price_cents": 595,
+      "price_cents": 625,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -30,7 +30,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -39,7 +39,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -48,7 +48,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -57,16 +57,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "cheese-shredded-mozza-320g",
-      "price_cents": 579,
+      "price_cents": 600,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -75,52 +75,43 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "bread-white-675g",
-      "price_cents": 349,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "bagels-plain-6pk",
-      "price_cents": 225,
+      "price_cents": 249,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "english-muffins-6pk",
-      "price_cents": 225,
+      "price_cents": 229,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "buns-hamburger-8pk",
-      "price_cents": 222,
+      "price_cents": 329,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "buns-hotdog-8pk",
-      "price_cents": 200,
+      "price_cents": 229,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -129,25 +120,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "strawberries-1lb",
-      "price_cents": 799,
+      "price_cents": 400,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "blueberries-pint",
-      "price_cents": 399,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -156,7 +138,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -165,7 +147,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -174,7 +156,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -183,7 +165,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -192,16 +174,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "avocado-each",
-      "price_cents": 179,
+      "price_cents": 100,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -210,25 +192,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "mushrooms-white-227g",
-      "price_cents": 299,
+      "price_cents": 249,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "chicken-breast-bnls-skls-lb",
-      "price_cents": 1400,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -237,25 +210,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "ground-beef-lean-lb",
-      "price_cents": 950,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "ground-beef-medium-lb",
       "price_cents": 900,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -264,7 +228,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -273,16 +237,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "deli-ham-175g",
-      "price_cents": 550,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -291,16 +246,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "rice-basmati-8kg",
-      "price_cents": 1649,
+      "price_cents": 1699,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -309,16 +264,16 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "pasta-spaghetti-900g",
-      "price_cents": 200,
+      "price_cents": 229,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -327,7 +282,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -336,7 +291,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -345,7 +300,7 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -354,25 +309,25 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "honey-1kg",
-      "price_cents": 700,
+      "price_cents": 629,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "maple-syrup-540ml",
-      "price_cents": 1799,
+      "price_cents": 1000,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -381,61 +336,34 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "soup-tomato-540ml",
-      "price_cents": 299,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "frozen-veg-mix-750g",
-      "price_cents": 275,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "ice-cream-1-5l",
-      "price_cents": 499,
+      "price_cents": 850,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "coffee-ground-930g",
-      "price_cents": 1999,
+      "price_cents": 1799,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "nofrills-blakes",
-      "product_slug": "tea-orange-pekoe-72ct",
-      "price_cents": 549,
-      "was_price_cents": null,
-      "on_sale": false,
-      "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
       "product_slug": "juice-apple-1-75l",
-      "price_cents": 329,
+      "price_cents": 379,
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "nofrills-blakes",
@@ -444,34 +372,781 @@
       "was_price_cents": null,
       "on_sale": false,
       "source": "scraper:no-frills",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "milk-2pct-4l",
+      "price_cents": 699,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "milk-1pct-4l",
+      "price_cents": 699,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "cheese-shredded-mozza-320g",
+      "price_cents": 498,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "tortillas-flour-10pk",
+      "price_cents": 298,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "strawberries-1lb",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "grapes-red-2lb",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "lettuce-romaine-3pk",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "peppers-bell-3pk",
+      "price_cents": 288,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "broccoli-bunch",
+      "price_cents": 500,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "lemons-bag-2lb",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "mushrooms-white-227g",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "chicken-whole-lb",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "ground-beef-lean-lb",
+      "price_cents": 899,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "bacon-375g",
+      "price_cents": 699,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "sausage-breakfast-375g",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "hot-dogs-12pk",
+      "price_cents": 799,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "salmon-atlantic-lb",
+      "price_cents": 1199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "tilapia-frozen-400g",
+      "price_cents": 699,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "rice-basmati-8kg",
+      "price_cents": 198,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "flour-all-purpose-2-5kg",
+      "price_cents": 377,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "sugar-white-2kg",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "oil-olive-1l",
+      "price_cents": 688,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "jam-strawberry-500ml",
+      "price_cents": 449,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "frozen-pizza-pepperoni",
+      "price_cents": 997,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "ice-cream-1-5l",
+      "price_cents": 377,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "coffee-ground-930g",
+      "price_cents": 2099,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "juice-orange-1-75l",
+      "price_cents": 144,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "soda-cola-12pk",
+      "price_cents": 398,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "paper-towel-6-roll",
+      "price_cents": 279,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "dish-soap-740ml",
+      "price_cents": 699,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "laundry-detergent-2-95l",
+      "price_cents": 1998,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "mayo-890ml",
+      "price_cents": 398,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "mustard-yellow-450ml",
+      "price_cents": 179,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "butter-salted-454g",
+      "price_cents": 598,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "cheese-cheddar-block-400g",
+      "price_cents": 227,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "bagels-plain-6pk",
+      "price_cents": 298,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "blueberries-pint",
+      "price_cents": 294,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "lettuce-romaine-3pk",
+      "price_cents": 397,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "broccoli-bunch",
+      "price_cents": 497,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "lemons-bag-2lb",
+      "price_cents": 648,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "chicken-thighs-bnls-skls-lb",
+      "price_cents": 570,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "bacon-375g",
+      "price_cents": 397,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "hot-dogs-12pk",
+      "price_cents": 397,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 297,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "oil-olive-1l",
+      "price_cents": 1197,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "peanut-butter-1kg",
+      "price_cents": 947,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "honey-1kg",
+      "price_cents": 942,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "frozen-pizza-pepperoni",
+      "price_cents": 297,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "ice-cream-1-5l",
+      "price_cents": 548,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "frozen-chicken-nuggets-700g",
+      "price_cents": 597,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "juice-apple-1-75l",
+      "price_cents": 328,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "soda-cola-12pk",
+      "price_cents": 248,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "toilet-paper-12-double",
+      "price_cents": 1496,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "paper-towel-6-roll",
+      "price_cents": 1498,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "dish-soap-740ml",
+      "price_cents": 197,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "laundry-detergent-2-95l",
+      "price_cents": 927,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "ketchup-1l",
+      "price_cents": 297,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "walmart-stcatharines",
+      "product_slug": "mayo-890ml",
+      "price_cents": 377,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:walmart",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "milk-2pct-4l",
+      "price_cents": 799,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "milk-1pct-4l",
+      "price_cents": 799,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "sour-cream-500ml",
+      "price_cents": 279,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "bread-whole-wheat-675g",
+      "price_cents": 279,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "english-muffins-6pk",
+      "price_cents": 279,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "buns-hamburger-8pk",
+      "price_cents": 269,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "buns-hotdog-8pk",
+      "price_cents": 269,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "apples-gala-3lb",
+      "price_cents": 197,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "grapes-red-2lb",
+      "price_cents": 377,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "tomatoes-on-vine-lb",
+      "price_cents": 169,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "spinach-baby-312g",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "cucumber-english",
+      "price_cents": 149,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "peppers-bell-3pk",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "chicken-breast-bnls-skls-lb",
+      "price_cents": 1200,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "bacon-375g",
+      "price_cents": 299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "hot-dogs-12pk",
+      "price_cents": 249,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 297,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "oil-canola-3l",
+      "price_cents": 988,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "oil-olive-1l",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "tuna-canned-170g",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "frozen-pizza-pepperoni",
+      "price_cents": 249,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "ice-cream-1-5l",
+      "price_cents": 299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "juice-orange-1-75l",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "soda-cola-12pk",
+      "price_cents": 429,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "toilet-paper-12-double",
+      "price_cents": 1077,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
       "valid_until": "2026-08-12"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "eggs-large-dozen",
-      "price_cents": 499,
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "eggs-large-18",
-      "price_cents": 499,
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "butter-salted-454g",
-      "price_cents": 299,
+      "price_cents": 467,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-16"
     },
     {
       "store_id": "sobeys-glendale",
@@ -494,11 +1169,11 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "tortillas-flour-10pk",
-      "price_cents": 399,
+      "price_cents": 549,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -521,11 +1196,11 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "grapes-red-2lb",
-      "price_cents": 299,
+      "price_cents": 399,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -548,11 +1223,11 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "spinach-baby-312g",
-      "price_cents": 199,
+      "price_cents": 499,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -584,92 +1259,92 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "mushrooms-white-227g",
-      "price_cents": 399,
+      "price_cents": 300,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "ground-beef-lean-lb",
-      "price_cents": 588,
+      "price_cents": 899,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "pork-chops-lb",
-      "price_cents": 244,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "sobeys-glendale",
-      "product_slug": "bacon-375g",
-      "price_cents": 499,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "sobeys-glendale",
-      "product_slug": "sausage-breakfast-375g",
-      "price_cents": 799,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "sobeys-glendale",
-      "product_slug": "deli-ham-175g",
-      "price_cents": 500,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "sobeys-glendale",
-      "product_slug": "deli-turkey-175g",
-      "price_cents": 500,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "sobeys-glendale",
-      "product_slug": "salmon-atlantic-lb",
       "price_cents": 399,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
-      "product_slug": "rice-basmati-8kg",
+      "product_slug": "bacon-375g",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "sausage-breakfast-375g",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "deli-ham-175g",
+      "price_cents": 379,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "deli-turkey-175g",
+      "price_cents": 449,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "salmon-atlantic-lb",
       "price_cents": 799,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "rice-basmati-8kg",
+      "price_cents": 1299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "sugar-white-2kg",
-      "price_cents": 349,
+      "price_cents": 299,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -692,11 +1367,11 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "honey-1kg",
-      "price_cents": 499,
+      "price_cents": 400,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -719,20 +1394,20 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "frozen-pizza-pepperoni",
-      "price_cents": 699,
+      "price_cents": 347,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
       "product_slug": "ice-cream-1-5l",
-      "price_cents": 549,
+      "price_cents": 494,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -746,11 +1421,11 @@
     {
       "store_id": "sobeys-glendale",
       "product_slug": "toilet-paper-12-double",
-      "price_cents": 1199,
+      "price_cents": 699,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:sobeys",
-      "valid_until": "2026-08-12"
+      "valid_until": "2026-08-19"
     },
     {
       "store_id": "sobeys-glendale",
@@ -771,255 +1446,336 @@
       "valid_until": "2026-08-12"
     },
     {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "butter-salted-454g",
-      "price_cents": 697,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-09-16"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "broccoli-bunch",
-      "price_cents": 447,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "lemons-bag-2lb",
-      "price_cents": 648,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "peanut-butter-1kg",
-      "price_cents": 947,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "honey-1kg",
-      "price_cents": 942,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "ice-cream-1-5l",
-      "price_cents": 548,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "soda-cola-12pk",
-      "price_cents": 248,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "dish-soap-740ml",
-      "price_cents": 197,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "laundry-detergent-2-95l",
-      "price_cents": 927,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "mayo-890ml",
-      "price_cents": 377,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "eggs-large-dozen",
-      "price_cents": 777,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "eggs-large-18",
-      "price_cents": 777,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "butter-unsalted-454g",
-      "price_cents": 577,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
+      "store_id": "sobeys-glendale",
       "product_slug": "cheese-cheddar-block-400g",
-      "price_cents": 300,
+      "price_cents": 849,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
     },
     {
-      "store_id": "freshco-scott",
-      "product_slug": "cheese-shredded-mozza-320g",
-      "price_cents": 599,
+      "store_id": "sobeys-glendale",
+      "product_slug": "cream-35-473ml",
+      "price_cents": 399,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
     },
     {
-      "store_id": "freshco-scott",
-      "product_slug": "bagels-plain-6pk",
-      "price_cents": 329,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "grapes-red-2lb",
-      "price_cents": 377,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "tomatoes-on-vine-lb",
-      "price_cents": 169,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "celery-bunch",
-      "price_cents": 199,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "lettuce-romaine-3pk",
-      "price_cents": 277,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "spinach-baby-312g",
-      "price_cents": 199,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "peppers-bell-3pk",
-      "price_cents": 199,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "broccoli-bunch",
-      "price_cents": 177,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "avocado-each",
-      "price_cents": 277,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "freshco-scott",
-      "product_slug": "mushrooms-white-227g",
+      "store_id": "sobeys-glendale",
+      "product_slug": "sour-cream-500ml",
       "price_cents": 249,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:freshco",
-      "valid_until": "2026-08-12"
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
     },
     {
-      "store_id": "freshco-scott",
+      "store_id": "sobeys-glendale",
+      "product_slug": "bread-whole-wheat-675g",
+      "price_cents": 299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "bagels-plain-6pk",
+      "price_cents": 200,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "oranges-navel-3lb",
+      "price_cents": 200,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "blueberries-pint",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "carrots-2lb",
+      "price_cents": 188,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
       "product_slug": "chicken-breast-bnls-skls-lb",
-      "price_cents": 1200,
+      "price_cents": 929,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:freshco",
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "chicken-thighs-bnls-skls-lb",
+      "price_cents": 349,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "beef-striploin-lb",
+      "price_cents": 2899,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "pork-tenderloin-lb",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "hot-dogs-12pk",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "tilapia-frozen-400g",
+      "price_cents": 499,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 399,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "peanut-butter-1kg",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "jam-strawberry-500ml",
+      "price_cents": 499,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "tuna-canned-170g",
+      "price_cents": 169,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "frozen-chicken-nuggets-700g",
+      "price_cents": 600,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "coffee-ground-930g",
+      "price_cents": 999,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "juice-apple-1-75l",
+      "price_cents": 350,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "trash-bags-40ct",
+      "price_cents": 799,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "sobeys-glendale",
+      "product_slug": "mayo-890ml",
+      "price_cents": 648,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:sobeys",
+      "valid_until": "2026-08-19"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "eggs-large-dozen",
+      "price_cents": 449,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
       "valid_until": "2026-08-12"
     },
     {
-      "store_id": "freshco-scott",
-      "product_slug": "toilet-paper-12-double",
-      "price_cents": 1077,
+      "store_id": "foodbasics-welland",
+      "product_slug": "eggs-large-18",
+      "price_cents": 449,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:freshco",
+      "source": "flipp:foodbasics",
       "valid_until": "2026-08-12"
     },
     {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "bacon-375g",
-      "price_cents": 397,
+      "store_id": "foodbasics-welland",
+      "product_slug": "cheese-cheddar-block-400g",
+      "price_cents": 699,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:walmart",
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "bread-whole-wheat-675g",
+      "price_cents": 298,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "blueberries-pint",
+      "price_cents": 299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "tomatoes-on-vine-lb",
+      "price_cents": 98,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "chicken-breast-bnls-skls-lb",
+      "price_cents": 499,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "pork-tenderloin-lb",
+      "price_cents": 328,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "deli-ham-175g",
+      "price_cents": 899,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "pasta-sauce-tomato-650ml",
+      "price_cents": 349,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "oats-quick-1kg",
+      "price_cents": 429,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "tuna-canned-170g",
+      "price_cents": 299,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "frozen-fries-1kg",
+      "price_cents": 749,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "foodbasics-welland",
+      "product_slug": "ketchup-1l",
+      "price_cents": 499,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:foodbasics",
       "valid_until": "2026-08-12"
     },
     {
@@ -1087,15 +1843,6 @@
     },
     {
       "store_id": "walmart-stcatharines",
-      "product_slug": "blueberries-pint",
-      "price_cents": 294,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
       "product_slug": "grapes-red-2lb",
       "price_cents": 444,
       "was_price_cents": null,
@@ -1132,33 +1879,6 @@
     },
     {
       "store_id": "walmart-stcatharines",
-      "product_slug": "chicken-thighs-bnls-skls-lb",
-      "price_cents": 570,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "pasta-sauce-tomato-650ml",
-      "price_cents": 297,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "oil-olive-1l",
-      "price_cents": 1197,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
       "product_slug": "oats-quick-1kg",
       "price_cents": 277,
       "was_price_cents": null,
@@ -1170,15 +1890,6 @@
       "store_id": "walmart-stcatharines",
       "product_slug": "tuna-canned-170g",
       "price_cents": 397,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "frozen-pizza-pepperoni",
-      "price_cents": 297,
       "was_price_cents": null,
       "on_sale": true,
       "source": "flipp:walmart",
@@ -1203,381 +1914,183 @@
       "valid_until": "2026-08-12"
     },
     {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "juice-apple-1-75l",
-      "price_cents": 328,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "walmart-stcatharines",
-      "product_slug": "toilet-paper-12-double",
-      "price_cents": 1496,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:walmart",
-      "valid_until": "2026-08-12"
-    },
-    {
       "store_id": "gianttiger-stcatharines",
-      "product_slug": "butter-salted-454g",
-      "price_cents": 488,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "lettuce-romaine-3pk",
-      "price_cents": 244,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "mushrooms-white-227g",
-      "price_cents": 167,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "pasta-sauce-tomato-650ml",
-      "price_cents": 167,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "frozen-pizza-pepperoni",
-      "price_cents": 347,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "soda-cola-12pk",
-      "price_cents": 399,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "gianttiger-stcatharines",
-      "product_slug": "dish-soap-740ml",
-      "price_cents": 497,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:gianttiger",
-      "valid_until": "2026-08-11"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "milk-2pct-4l",
-      "price_cents": 699,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "milk-1pct-4l",
-      "price_cents": 699,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
       "product_slug": "eggs-large-dozen",
-      "price_cents": 449,
+      "price_cents": 393,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
+      "store_id": "gianttiger-stcatharines",
       "product_slug": "eggs-large-18",
-      "price_cents": 449,
+      "price_cents": 393,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "cheese-cheddar-block-400g",
-      "price_cents": 699,
+      "store_id": "gianttiger-stcatharines",
+      "product_slug": "celery-bunch",
+      "price_cents": 144,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "cheese-shredded-mozza-320g",
-      "price_cents": 498,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "bread-whole-wheat-675g",
-      "price_cents": 298,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "tortillas-flour-10pk",
-      "price_cents": 298,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "strawberries-1lb",
-      "price_cents": 399,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "blueberries-pint",
-      "price_cents": 299,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "grapes-red-2lb",
-      "price_cents": 399,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "tomatoes-on-vine-lb",
-      "price_cents": 98,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "lettuce-romaine-3pk",
-      "price_cents": 399,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "peppers-bell-3pk",
+      "store_id": "gianttiger-stcatharines",
+      "product_slug": "avocado-each",
       "price_cents": 288,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
+      "store_id": "gianttiger-stcatharines",
       "product_slug": "mushrooms-white-227g",
-      "price_cents": 399,
+      "price_cents": 167,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "chicken-breast-bnls-skls-lb",
-      "price_cents": 499,
+      "store_id": "gianttiger-stcatharines",
+      "product_slug": "pork-chops-lb",
+      "price_cents": 697,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "ground-beef-lean-lb",
-      "price_cents": 899,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "pork-tenderloin-lb",
-      "price_cents": 328,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
+      "store_id": "gianttiger-stcatharines",
       "product_slug": "hot-dogs-12pk",
-      "price_cents": 799,
+      "price_cents": 250,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "deli-ham-175g",
-      "price_cents": 899,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "salmon-atlantic-lb",
-      "price_cents": 1199,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "pasta-sauce-tomato-650ml",
-      "price_cents": 349,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "flour-all-purpose-2-5kg",
-      "price_cents": 377,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "oil-olive-1l",
-      "price_cents": 688,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "oats-quick-1kg",
-      "price_cents": 429,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
+      "store_id": "gianttiger-stcatharines",
       "product_slug": "tuna-canned-170g",
-      "price_cents": 299,
+      "price_cents": 100,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "frozen-pizza-pepperoni",
-      "price_cents": 997,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "frozen-fries-1kg",
-      "price_cents": 749,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "ice-cream-1-5l",
-      "price_cents": 377,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "coffee-ground-930g",
-      "price_cents": 2099,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
-      "product_slug": "soda-cola-12pk",
-      "price_cents": 398,
-      "was_price_cents": null,
-      "on_sale": true,
-      "source": "flipp:foodbasics",
-      "valid_until": "2026-08-12"
-    },
-    {
-      "store_id": "foodbasics-welland",
+      "store_id": "gianttiger-stcatharines",
       "product_slug": "laundry-detergent-2-95l",
-      "price_cents": 1998,
+      "price_cents": 1188,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
+      "source": "flipp:gianttiger",
+      "valid_until": "2026-08-18"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "eggs-large-dozen",
+      "price_cents": 777,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
       "valid_until": "2026-08-12"
     },
     {
-      "store_id": "foodbasics-welland",
-      "product_slug": "ketchup-1l",
-      "price_cents": 499,
+      "store_id": "freshco-scott",
+      "product_slug": "eggs-large-18",
+      "price_cents": 777,
       "was_price_cents": null,
       "on_sale": true,
-      "source": "flipp:foodbasics",
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "butter-unsalted-454g",
+      "price_cents": 577,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "cheese-cheddar-block-400g",
+      "price_cents": 300,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "cheese-shredded-mozza-320g",
+      "price_cents": 599,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "bagels-plain-6pk",
+      "price_cents": 329,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "celery-bunch",
+      "price_cents": 199,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "lettuce-romaine-3pk",
+      "price_cents": 277,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "broccoli-bunch",
+      "price_cents": 177,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "avocado-each",
+      "price_cents": 277,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
+      "valid_until": "2026-08-12"
+    },
+    {
+      "store_id": "freshco-scott",
+      "product_slug": "mushrooms-white-227g",
+      "price_cents": 249,
+      "was_price_cents": null,
+      "on_sale": true,
+      "source": "flipp:freshco",
       "valid_until": "2026-08-12"
     }
   ]
