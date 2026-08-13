@@ -16,7 +16,7 @@
     "available_to": 430,
     "cutout_image_url": 429,
     "price": 427,
-    "brand": 360,
+    "brand": 359,
     "page_destination": 0,
     "video_url": 0
   },
@@ -77,7 +77,7 @@
     {
       "id": 1032106903,
       "flyer_id": 8075758,
-      "name": "MARC ANGELO SOUVLAKI, CHICKEN MEDALLIONS OR CHICKEN BURGERS",
+      "name": "HIGH LINER CATCH OF THE DAY BREADED & BATTERED FISH FILLETS",
       "display_type": 1,
       "cutout_image_url": "https://f.wishabi.net/page_items/430056534/1786326408/extra_large.jpg",
       "brand": "HIGH LINER\u00ae",
@@ -93,27 +93,9 @@
       "price": "3.99"
     },
     {
-      "id": 1032107223,
-      "flyer_id": 8075758,
-      "name": "SWISS CHALET BBQ PORK BACK RIBS",
-      "display_type": 1,
-      "cutout_image_url": "https://f.wishabi.net/page_items/430056296/1786326408/extra_large.jpg",
-      "brand": null,
-      "valid_from": "2026-08-13T00:00:00-04:00",
-      "valid_to": "2026-08-19T23:59:59-04:00",
-      "left": 2314.280029296875,
-      "bottom": -1619.160034179687,
-      "right": 2880.429931640625,
-      "top": -1286.650024414062,
-      "page_destination": null,
-      "available_to": "2026-08-19T23:59:59-04:00",
-      "video_url": null,
-      "price": "1.49"
-    },
-    {
       "id": 1032107358,
       "flyer_id": 8075758,
-      "name": "PEACHES OR NECTARINES",
+      "name": "WHOLE WHITE OR CREMINI MUSHROOMS",
       "display_type": 1,
       "cutout_image_url": "https://f.wishabi.net/page_items/430059382/1786326419/extra_large.jpg",
       "brand": null,
@@ -145,6 +127,24 @@
       "available_to": "2026-08-19T23:59:59-04:00",
       "video_url": null,
       "price": "3.99"
+    },
+    {
+      "id": 1032107506,
+      "flyer_id": 8075758,
+      "name": "IRRESISTIBLE GOAT CHEESE",
+      "display_type": 1,
+      "cutout_image_url": "https://f.wishabi.net/page_items/430055950/1786326412/extra_large.jpg",
+      "brand": "Irresistible",
+      "valid_from": "2026-08-13T00:00:00-04:00",
+      "valid_to": "2026-08-19T23:59:59-04:00",
+      "left": 3469.239990234375,
+      "bottom": -2169.550048828125,
+      "right": 3608.1298828125,
+      "top": -1917.849975585937,
+      "page_destination": null,
+      "available_to": "2026-08-19T23:59:59-04:00",
+      "video_url": null,
+      "price": "7.49"
     }
   ]
 }
