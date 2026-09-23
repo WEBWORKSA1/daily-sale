@@ -75,24 +75,6 @@
       "price": "1.99"
     },
     {
-      "id": 1040888834,
-      "flyer_id": 8133017,
-      "name": "Google Play",
-      "display_type": 5,
-      "cutout_image_url": "https://f.wishabi.net/page_items/433948789/1789500204/extra_large.jpg",
-      "brand": null,
-      "valid_from": "2026-09-17T00:00:00-04:00",
-      "valid_to": "2026-09-23T23:59:59-04:00",
-      "left": 17404.099609375,
-      "bottom": -2371.02001953125,
-      "right": 18248.599609375,
-      "top": -2282.1201171875,
-      "page_destination": null,
-      "available_to": "2026-09-23T23:59:59-04:00",
-      "video_url": null,
-      "price": ""
-    },
-    {
       "id": 1040194257,
       "flyer_id": 8133017,
       "name": "VILLAGGIO BREAD OR BUNS",
@@ -145,6 +127,24 @@
       "available_to": "2026-09-23T23:59:59-04:00",
       "video_url": null,
       "price": "1.98"
+    },
+    {
+      "id": 1040191897,
+      "flyer_id": 8133017,
+      "name": "JANES PUB STYLE FULLY COOKED BREADED",
+      "display_type": 1,
+      "cutout_image_url": "https://f.wishabi.net/page_items/433736701/1789211501/extra_large.jpg",
+      "brand": "JANES",
+      "valid_from": "2026-09-17T00:00:00-04:00",
+      "valid_to": "2026-09-23T23:59:59-04:00",
+      "left": 834.5260009765625,
+      "bottom": -995.9299926757812,
+      "right": 983.1500244140625,
+      "top": -821.4010009765625,
+      "page_destination": null,
+      "available_to": "2026-09-23T23:59:59-04:00",
+      "video_url": null,
+      "price": "5.55"
     }
   ]
 }
