@@ -1,146 +1,37 @@
-# daily-sale — Setup Guide
+# daily.sale — Owner Setup Checklist
 
-> Repo: github.com/WEBWORKSA1/daily-sale
-> Live deploy target: Vercel
-> Submissions: Formspree → webworksa1@gmail.com
+Everything is automated once these one-time steps are done.
 
----
+## 1. Daily automation (GitHub Actions)
+- `.github/workflows/scrape.yml` runs every day at 09:15 UTC plus Wednesday evening, commits `data/prices/latest.json`, and Vercel redeploys automatically.
+- Repo → **Settings → Actions → General → Workflow permissions** → *Read and write permissions* (needed for the bot to commit).
+- Run it once by hand: **Actions → Daily flyer refresh → Run workflow**.
 
-## Phase 1: Deploy to Vercel (3 min)
+## 2. Vercel
+- Project → **Settings → Domains**: add `daily.sale` and `www.daily.sale` (redirect www → apex).
+- Project → **Settings → Environment Variables** (all optional, see `.env.example`):
+  - `CONTACT_EMAIL` — inbox that receives every form.
+  - `FORMSPREE_FORM_ID` — optional; otherwise forms deliver through FormSubmit. The very first FormSubmit submission sends a one-time **Activate** email to the inbox: click it once.
+  - `NEXT_PUBLIC_DONATE_URL` / `NEXT_PUBLIC_DONATE_MONTHLY_URL` — Stripe Payment Links or PayPal.me for instant donations (without them, donors get a pledge confirmation and you send a payment link).
+  - `NEXT_PUBLIC_ADSENSE_SLOT` — optional numeric ad-unit id; Auto Ads work without it.
+  - `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_GSC_VERIFICATION` — analytics and Search Console.
 
-1. Go to **https://vercel.com/new**
-2. Sign in with GitHub if not already
-3. **Import** the `daily-sale` repo
-4. Framework: **Next.js** (auto-detected)
-5. Click **Deploy**
+## 3. Google AdSense (pub-6620975821265271)
+- The AdSense script and `google-adsense-account` meta tag are in every page's server HTML.
+- `https://daily.sale/ads.txt` is served from `public/ads.txt`.
+- In AdSense → **Sites**, add `daily.sale`, then **Request review**. Turn on **Auto ads**.
+- In AdSense → **Privacy & messaging**, enable the Google-certified CMP message for EEA/UK/Switzerland visitors.
 
-Vercel runs `npm run prebuild` first, which generates `data/prices/latest.json` with 690 realistic seed prices for 7 St. Catharines stores. Then `next build` runs and pre-renders 4 postal pages (L2N, L2S, L2T, L2M).
+## 4. Google Search Console
+- Add the `daily.sale` property, verify (DNS or `NEXT_PUBLIC_GSC_VERIFICATION`), and submit `https://daily.sale/sitemap.xml`.
 
-~90 seconds later: live URL like `daily-sale-abc.vercel.app`.
+## 5. Running contests
+- Edit the `CONTEST` object at the top of `app/contests/page.tsx` (name, prize, dates) for each new contest.
+- Entries arrive by email tagged `contest-entry`. Pick a winner at random, then administer the skill-testing question before awarding.
 
-## Phase 2: Test it
+## 6. Adding videos
+- Append `{"id": "<11-char YouTube id>", "title": "…", "desc": "…"}` to `data/videos.json`.
 
-Try these postal codes:
-- `L2N 2G1` — 4 stores compete here (No Frills, FreshCo, Zehrs, Giant Tiger)
-- `L2S 0B3` — Walmart Supercentre
-- `L2M 5V3` — Food Basics
-- `L2T 2L1` — Sobeys
-
-## Phase 3: Wire Formspree for price reports (4 min)
-
-1. Sign up at **https://formspree.io** with `webworksa1@gmail.com`
-2. Create form → name it "daily-sale price reports"
-3. Copy the form ID (e.g. `xrgnpvqz`)
-4. Vercel project → **Settings** → **Environment Variables** → Add:
-   - Name: `NEXT_PUBLIC_FORMSPREE_ID`
-   - Value: `<your-form-id>`
-   - Environments: all three
-5. **Redeploy** (Deployments → ⋯ → Redeploy)
-
-Test the `/report` page — submissions hit your Gmail inbox.
-
-## Phase 4: Add the daily scraper cron (manual — GitHub MCP can't write workflows)
-
-Create file `.github/workflows/scrape.yml` directly on GitHub (Add file → Create new file):
-
-```yaml
-name: Daily price scrape
-
-on:
-  schedule:
-    - cron: "0 10 * * *"  # 06:00 ET
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  scrape:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: "pip"
-      - run: pip install -r scrapers/requirements.txt
-      - run: python scrapers/run_all.py
-      - name: Commit updated prices
-        run: |
-          git config user.name "daily-sale-bot"
-          git config user.email "bot@daily-sale.local"
-          git add data/prices/latest.json
-          if ! git diff --staged --quiet; then
-            git commit -m "chore(prices): daily snapshot $(date -u +%Y-%m-%d)"
-            git push
-          else
-            echo "No price changes today."
-          fi
-```
-
-Until at least one real scraper works, this just runs the Walmart stub. Real scrapers come next session (capture cURLs from DevTools).
-
-## Phase 5: Real scrapers (next session)
-
-### Walmart test
-
-```bash
-git clone https://github.com/WEBWORKSA1/daily-sale.git
-cd daily-sale
-pip install -r scrapers/requirements.txt
-python scrapers/retailers/walmart.py --dry-run
-```
-
-Outcomes:
-- ✅ Prints `[dry] Bananas @ Walmart = $X.XX` → run without `--dry-run`
-- ❌ HTTP 403 / Cloudflare → switch to Playwright (~30 min refactor)
-- ❌ Empty results → endpoint shape changed, fix `parse_search_response()`
-
-### Loblaw banners (No Frills + Zehrs)
-
-Both run on `pcexpress.ca`. Crack one, both work.
-
-1. Open `nofrills.ca` in Chrome
-2. Set store to Mike's NoFrills (285 Geneva St, St. Catharines)
-3. DevTools → Network → filter `Fetch/XHR`
-4. Search "milk"
-5. Find the request to `pcexpress.ca/pcx-bff/...`
-6. Right-click → **Copy as cURL**
-7. Paste cURL into next Claude session — I'll convert to a scraper module
-
----
-
-## File layout
-
-```
-daily-sale/
-├── app/                    # Next.js routes
-│   ├── page.tsx           # Postal entry
-│   ├── p/[postal]/        # Result page (pre-rendered for L2N, L2S, L2T, L2M)
-│   └── report/            # Formspree price-report form
-├── components/             # ItemList, TotalSavings
-├── lib/                    # data.ts, postal.ts, types.ts
-├── data/
-│   ├── config.json        # 7 retailers + 7 stores
-│   ├── products.json      # 100 SKUs
-│   └── prices/latest.json # Generated by prebuild; overwritten by scrapers
-├── scrapers/               # Python
-│   ├── retailers/         # walmart.py (real) + 6 stubs
-│   ├── utils/             # http, match, store (JSON writer)
-│   └── run_all.py
-├── scripts/
-│   └── generate_seed_prices.js  # Node prebuild step
-└── .github/workflows/
-    └── scrape.yml         # ADD MANUALLY (see Phase 4)
-```
-
-## When to add Supabase
-
-Re-add Supabase when ANY of these become true:
-- ≥50 weekly active users (need real auth)
-- You want historical price trend charts
-- Accepting receipt-photo submissions (need storage + DB)
-- Investor due diligence asks about your data layer
-
-Until then, JSON files are the right answer.
+## 7. Adding a city
+- Add the city's stores to `data/config.json` (with postal codes).
+- The Flipp scraper currently reads flyers for one postal code (`POSTAL` in `scrapers/retailers/flipp.py`, St. Catharines). For a new city, run it per postal code (loop over a list) so each city's flyers are fetched.

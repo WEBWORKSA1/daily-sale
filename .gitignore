@@ -18,3 +18,5 @@ scrapers/data/*
 !scrapers/data/flipp_foodbasics_items.json
 !scrapers/data/flipp_field_audit.json
 !scrapers/data/flipp_ocr_test.json
+tsconfig.tsbuildinfo
+next-env.d.ts

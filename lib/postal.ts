@@ -1,15 +1,15 @@
-export function toPostalPrefix(input: string): string | null {
-  if (!input) return null;
-  const cleaned = input.toUpperCase().replace(/\s+/g, '');
-  const ca = /^[A-Z]\d[A-Z]\d[A-Z]\d$/;
-  const fsa = /^[A-Z]\d[A-Z]$/;
-  const us = /^\d{5}$/;
-  if (ca.test(cleaned)) return cleaned.slice(0, 3);
-  if (fsa.test(cleaned)) return cleaned;
-  if (us.test(cleaned)) return cleaned.slice(0, 3);
-  return null;
+// Canadian postal code: A1A 1A1
+const PC = /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/;
+const FSA = /^[A-Za-z]\d[A-Za-z]$/;
+
+export function isValidPostal(raw: string): boolean {
+  const s = (raw||'').replace(/\s+/g,'');
+  return PC.test(s) || FSA.test(s);
 }
 
-export function isValidPostal(input: string): boolean {
-  return toPostalPrefix(input) !== null;
+export function toPostalPrefix(raw: string): string | null {
+  const s = (raw||'').replace(/\s+/g,'').toUpperCase();
+  if (FSA.test(s)) return s;
+  if (PC.test(s)) return s.slice(0, 3);
+  return null;
 }

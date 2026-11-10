@@ -1,40 +1,47 @@
-# CheapCart — Cheapest Grocery Price Finder
+# daily.sale™
 
-**MVP. St. Catharines, Ontario launch. Top 100 Canadian grocery SKUs across 7 retailers.**
-**No database. JSON files. Vercel static deploy. Built to demo and pitch.**
+Every grocer's flyer. One page. Ranked cheapest.
 
-## What this does
+daily.sale compares this week's flyer prices across No Frills, Walmart, Food Basics, FreshCo, Sobeys, Giant Tiger and Zehrs (St. Catharines / Niagara first) and ranks the cheapest store for 100 everyday items. Prices refresh automatically every day.
 
-Enter a postal code → see the cheapest store *today* for each of the 100 most-bought Canadian grocery items. Total savings calculated. Click any item to see prices at every other store.
+## How it runs itself
 
-## Wedge
+```
+GitHub Actions (daily 09:15 UTC + Wed evening)
+  └─ scrapers/retailers/no_frills.py   retailer-direct prices
+  └─ scrapers/retailers/flipp.py       every banner's digital flyer
+  └─ scrapers/utils/store.py           merge · drop expired · reject implausible prices
+  └─ scrapers/validate.py              refuse to publish < 20 rows
+  └─ git commit data/prices/latest.json
+        └─ Vercel auto-deploys → every page re-reads the new data
+```
 
-Existing apps (Flipp, Reebee) show prices at every store. They don't tell you which store is cheapest *for what you actually buy*. CheapCart computes that ranking daily.
+Pages are rendered on demand, so rankings, reports, sitemaps and "last updated" stamps always reflect the latest committed data.
 
-## Stack (zero-cost, zero-account)
+## Site map
 
-- **Frontend**: Next.js 14 static export, deployed on Vercel free tier
-- **Data store**: JSON files in the GitHub repo (`data/prices/latest.json`)
-- **Scrapers**: Python, write to JSON, run daily via GitHub Actions
-- **User submissions**: Formspree → emails to webworksa1@gmail.com (no DB needed)
-- **Daily refresh**: GitHub Actions cron commits new JSON; Vercel auto-rebuilds
+| Area | Routes |
+|---|---|
+| Deals | `/`, `/deals?q=`, `/p/[postal]`, `/item/[slug]` (100 pages), `/categories/[cat]`, `/stores/[id]`, `/flyers` |
+| Tools | `/basket` (cheapest basket builder), `/calculator`, `/report` |
+| Content | `/blog` + self-updating weekly reports `/blog/[slug]`, `/guides/[slug]`, `/videos`, `/coupons`, `/faq` |
+| Lead generation | `/newsletter` (Thursday email + price-drop alerts), homepage alert builder, exit-intent offer, `/launch-request` |
+| Community | `/contests`, `/donate` (directed support: operations, promotions, hiring, contests, expansion) |
+| Business | `/advertise`, `/partnerships`, `/careers`, `/press`, `/contact` |
+| Legal | `/privacy`, `/terms`, `/cookies`, `/legal`, `/dmca`, `/accessibility`, `/affiliate-disclosure`, `/editorial-policy` |
+| SEO / ads | `/sitemap.xml`, `/robots.txt`, `/ads.txt`, Open Graph image, JSON-LD |
 
-## Quick start (5 minutes to running locally)
+All forms post to `/api/lead`, which delivers server-side; no inbox address is ever rendered to visitors.
+
+## Develop
 
 ```bash
 npm install
-python3 scripts/generate_seed_prices.py
-npm run dev
+npm run dev        # http://localhost:3000
+npm run build
+python scrapers/retailers/flipp.py --verbose   # refresh prices locally
 ```
 
-Open http://localhost:3000 → enter `L2N 2G1`.
+Configuration lives in `.env.example`. Store list: `data/config.json`. Product list: `data/products.json`. Price sanity bounds: `data/reference_prices.json`. Videos: `data/videos.json`.
 
-## Deploy to Vercel
-
-Import this repo at vercel.com/new. No env vars required. For Formspree price reports, add `NEXT_PUBLIC_FORMSPREE_ID` in Vercel project settings.
-
-## Legal posture
-
-- Scrape only retailer-direct sources. No aggregators (Flipp, Reebee).
-- Compilation is transformative (cheapest-store ranking).
-- robots.txt respected; 1 req / 2s per host.
+© daily.sale. All rights reserved. Retailer names are trademarks of their respective owners; daily.sale is not affiliated with any retailer.
