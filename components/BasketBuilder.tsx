@@ -90,7 +90,7 @@ export function BasketBuilder({ products, stores, matrix }: { products: P[]; sto
                 ) : best ? (
                   <>
                     <div className="display text-2xl font-black mt-1">{best.store.retailer}</div>
-                    <div className="text-sm opacity-90">has {best.have} of {picked.length} items on flyer · {formatPrice(best.total)}</div>
+                    <div className="text-sm opacity-90">has {best.have} of your {picked.length} items on its flyer · {formatPrice(best.total)} for those {best.have}</div>
                   </>
                 ) : <div className="text-sm mt-2">No store has these items this week.</div>}
               </div>
