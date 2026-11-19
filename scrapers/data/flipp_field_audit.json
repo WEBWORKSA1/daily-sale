@@ -7,6 +7,7 @@
     "flyer_id": 342,
     "name": 342,
     "display_type": 342,
+    "cutout_image_url": 342,
     "valid_from": 342,
     "valid_to": 342,
     "left": 342,
@@ -14,7 +15,6 @@
     "right": 342,
     "top": 342,
     "available_to": 342,
-    "cutout_image_url": 341,
     "price": 339,
     "brand": 284,
     "page_destination": 0,
@@ -129,22 +129,22 @@
       "price": "49.98"
     },
     {
-      "id": 1054145807,
+      "id": 1054145986,
       "flyer_id": 8227897,
-      "name": "MOTT'S CLAMATO COCKTAIL",
+      "name": "VH COOKING SAUCE",
       "display_type": 1,
-      "cutout_image_url": "https://f.wishabi.net/page_items/440498473/1794569047/extra_large.jpg",
-      "brand": "Mott's",
+      "cutout_image_url": "https://f.wishabi.net/page_items/440536532/1794569059/extra_large.jpg",
+      "brand": "VH",
       "valid_from": "2026-11-19T00:00:00-05:00",
       "valid_to": "2026-11-25T23:59:59-05:00",
-      "left": 7337.41015625,
-      "bottom": -974.6489868164062,
-      "right": 7520.080078125,
-      "top": -640.39599609375,
+      "left": 7400.4501953125,
+      "bottom": -1878.660034179687,
+      "right": 7475.31005859375,
+      "top": -1627.680053710937,
       "page_destination": null,
       "available_to": "2026-11-25T23:59:59-05:00",
       "video_url": null,
-      "price": "7.0"
+      "price": "3.49"
     }
   ]
 }
